@@ -1,0 +1,66 @@
+source 'https://rubygems.org'
+
+gem 'rails', '3.2.3'
+
+# Bundle edge Rails instead:
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+
+
+group :development do
+  gem 'mysql2'
+  gem "rspec-rails", "~> 2.10.1"
+  gem "annotate", "~> 2.4.0"
+end
+
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+
+  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  # gem 'therubyracer', :platform => :ruby
+
+  gem 'uglifier', '>= 1.0.3'
+end
+
+gem 'jquery-rails'
+
+# File attachments for model, ie: profile pictures
+gem "paperclip", "~> 3.0.4"
+
+#Paperclip 3.0 introduces a non-backward compatible change in your attachment
+#path. This will help to prevent attachment name clashes when you have
+#multiple attachments with the same name. If you didn't alter your
+#attachment's path and are using Paperclip's default, you'll have to add
+#`:path` and `:url` to your `has_attached_file` definition. For example:
+#
+#    has_attached_file :avatar,
+#      :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
+#      :url => "/system/:attachment/:id/:style/:filename"
+
+
+
+# Authorization, restrict access
+gem "cancan", "~> 1.6.7"
+
+# bcrypt() is a sophisticated and secure hash algorithm designed by The OpenBSD project for hashing passwords. 
+# bcrypt-ruby provides a simple, humane wrapper for safely handling passwords.
+gem "bcrypt-ruby", "~> 3.0.1"
+
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
+
+# To use Jbuilder templates for JSON
+# gem 'jbuilder'
+
+# Use unicorn as the app server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'ruby-debug19', :require => 'ruby-debug'
