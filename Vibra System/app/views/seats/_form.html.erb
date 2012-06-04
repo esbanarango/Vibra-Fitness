@@ -1,0 +1,15 @@
+<%= simple_form_for @seat, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="row">
+    <div id="formLeft" class="span4"> 
+      <%= f.input :name, :label => 'Nombre' %>
+      <%= f.input :address, :label => 'Dirección' %>
+      <%= f.input :phone, :label => 'Teléfono' %>
+      <%= f.input :num_machines, :label => 'Num. Máquinas' %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary', :value => 'Guardar' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                seats_path, :class => 'btn' %>
+  </div>
+<% end %>

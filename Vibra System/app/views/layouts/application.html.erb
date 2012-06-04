@@ -1,14 +1,62 @@
 <!DOCTYPE html>
-<html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
+
   <title>VibraSystem</title>
+	<!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+  <![endif]-->
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+       chromium.org/developers/how-tos/chrome-frame-getting-started -->
+  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+<%= render 'layouts/header' %>
 
-<%= yield %>
 
+<!--
+    <div class="span2">
+      <div class="well sidebar-nav">
+        <ul class="nav nav-list">
+          <li class="nav-header">Clientes</li>
+          <li><a href="#">Nuevo Cliente</a></li>
+          <li><a href="#">Lista de clientes</a></li>
+          <li class="nav-header">Agenda</li>
+          <li><a href="#">Reservas</a></li>
+          <li><a href="#">Configuración</a></li>
+          <li class="nav-header">Facturación</li>
+          <li><a href="#">Historial</a></li>
+          <li class="nav-header">Sedes</li>
+          <li><a href="#">Nuevo Empleado</a></li>
+          <li><a href="#">Lista Empleados</a></li>
+          <li><a href="#">Planes</a></li>
+        </ul>
+      </div>
+    </div>
+
+ -->
+<div class="container">
+  <div class="row">
+    <div class="">
+          <% flash.each do |name, msg| %>
+            <div class="alert alert-<%= name %>">
+              <a class="close" data-dismiss="alert">×</a>
+              <%= msg %>
+            </div>
+          <% end %>
+        <%= yield %>
+    </div>
+  </div>
+  <%= render 'layouts/footer' %>
+</div>
+  <%= javascript_include_tag "application" %>
 </body>
 </html>

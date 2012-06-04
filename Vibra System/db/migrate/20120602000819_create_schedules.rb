@@ -10,6 +10,6 @@ class CreateSchedules < ActiveRecord::Migration
 
       t.timestamps
     end
-     add_index :schedules, [:seat_id, :start_time, :date, :machine_num]
+     add_index :schedules, [:seat_id, :start_time, :date, :machine_num], :unique => true, :name => 'schedule_unique'
   end
 end

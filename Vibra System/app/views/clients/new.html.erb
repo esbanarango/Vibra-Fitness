@@ -1,0 +1,8 @@
+<% provide(:client, 'active') %>
+<section class="span9 offset2">
+<%- model_class = @client.class -%>
+<legend><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
+                               :default => "Nuevo #{model_class.model_name.human}e") %></legend>
+                             
+<%= render :partial => 'form' %>
+</section>

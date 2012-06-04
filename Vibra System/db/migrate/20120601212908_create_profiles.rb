@@ -1,13 +1,13 @@
 class CreateProfiles < ActiveRecord::Migration
   def change
     create_table :profiles do |t|
-      t.string :first_name
+      t.string :first_name, :null => false
       t.string :last_name
       t.string :document, :null => false, :unique => true
       t.string :phone
       t.string :address
       t.string :email, :null => false, :unique => true, :limit => 255
-      t.string :password_digest
+      t.string :password_digest, :null => false
       t.string :mobile
       t.string :company
       t.string :phone_company

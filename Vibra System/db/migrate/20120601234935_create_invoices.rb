@@ -4,9 +4,9 @@ class CreateInvoices < ActiveRecord::Migration
       t.date :creation_date
       t.date :expiration_date
       t.string :city
-      t.decimal :subtotal
+      t.decimal :subtotal, :precision => 12, :scale => 2
       t.integer :iva
-      t.decimal :total
+      t.decimal :total, :precision => 12, :scale => 2
       t.integer :quantity
 
       t.integer :client_id

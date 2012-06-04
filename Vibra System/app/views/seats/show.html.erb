@@ -1,0 +1,26 @@
+<% provide(:seat, 'active') %>
+<%- model_class = @seat.class -%>
+<legend>Sede</legend>
+
+<dl class="dl-horizontal">
+  <dt><strong>Nombre:</strong></dt>
+  <dd><%= @seat.name %></dd>
+  <dt><strong>Dirección:</strong></dt>
+  <dd><%= (@seat.address != "") ? @seat.address : "-" %></dd>
+  <dt><strong>Telefono:</strong></dt>
+  <dd><%= (@seat.phone != "") ? @seat.phone : "-" %></dd>
+  <dt><strong>Num. Máquinas:</strong></dt>
+  <dd><%= @seat.num_machines %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to "Atrás",
+              seats_path, :class => 'btn'  %>
+  <%= link_to "Editar",
+              edit_seat_path(@seat), :class => 'btn' %>
+  <!-- <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              seat_path(@seat),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %> -->
+</div>

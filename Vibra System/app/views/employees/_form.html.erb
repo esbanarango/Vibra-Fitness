@@ -1,0 +1,25 @@
+<%= simple_form_for @employee, :html => { :class => 'form-inline' } do |f| %>
+      <div class="row">
+        <div id="formLeft" class="span4"> 
+            <%= f.input :first_name, :label => 'Nombre' %>            
+            <%= f.input :document, :label => 'Documento' %>
+            <%= f.input :email, :label => 'Email' %>
+            <%= f.input :password, :label => 'Contraseña' %>
+            <%= f.input :password_confirmation, :label => 'Confirmar Contraseña' %>
+        </div>
+        <div id="formRight" class="span4"> 
+            <%= f.input :last_name, :label => 'Apellido' %>
+            <%= f.input :address, :label => 'Dirección' %>
+            <%= f.input :phone, :label => 'Telefono' %>
+            <%= f.input :mobile, :label => 'Celular' %>
+            <%= f.input :seat_id, :label => 'Sede' do %>
+              <%= f.select :seat_id, Seat.all.map { |r| [r.name, r.id] }, :include_blank => false %>
+            <% end %>
+        </div>
+    </div>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary', :value => 'Guardar' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                employees_path, :class => 'btn' %>
+  </div>
+<% end %>

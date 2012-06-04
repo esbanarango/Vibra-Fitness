@@ -1,0 +1,6 @@
+<% provide(:employee, 'active') %>
+<section class="span9 offset2">
+<%- model_class = @employee.class -%>
+<legend>Editar Empleado</legend>
+<%= render :partial => 'form' %>
+</section>

@@ -1,0 +1,21 @@
+ <div class="login-form">
+        <legend>Login</legend>
+        <fieldset >
+        	<%= form_for(:session, url: sessions_path) do |f| %>
+        	  <div class="control-group">
+        	  	<label class="control-label" >Email</label>
+        	  	<div class="controls">
+        	  		<%= f.text_field :email, :placeholder => 'Email', :class => '.input-large', required: "required"  %>
+        	  	</div>
+        	  </div>
+
+        	  <div class="control-group">
+        	  	<label class="control-label" >Contraseña</label>
+        	  	<div class="controls">
+        	  		<%= f.password_field :password, :placeholder => 'Contraseña', :class => '.input-large', required: "required"  %>
+        	  	</div>
+        	  </div>
+        	  <%= f.submit "Ingresar", class: "btn btn-large btn-primary" %>
+	    	<% end %>
+        </fieldset>
+</div>
