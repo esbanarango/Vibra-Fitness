@@ -10,9 +10,12 @@ gem 'mysql2'
 
 group :development do
   gem "rspec-rails", "~> 2.10.1"
+  # bundle exec annotate --position before
   gem "annotate", 
     :git => 'git://github.com/jeremyolliver/annotate_models.git', 
     :branch => 'rake_compatibility'
+
+  gem "faker", "~> 1.0.1"  
 end
 
 
@@ -54,6 +57,9 @@ gem "cancan", "~> 1.6.7"
 # bcrypt() is a sophisticated and secure hash algorithm designed by The OpenBSD project for hashing passwords. 
 # bcrypt-ruby provides a simple, humane wrapper for safely handling passwords.
 gem "bcrypt-ruby", "~> 3.0.1"
+
+#Kaminari is a Scope & Engine based, clean, powerful, agnostic, customizable and sophisticated paginator for Rails 3
+gem "kaminari"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -3,3 +3,10 @@
 
 en:
   hello: "Hello world"
+  views:
+    pagination:
+      previous: "«"
+      next: "»"
+      first: "Primera"
+      last: "Última"
+      truncate: "&hellip;&rdquo;"

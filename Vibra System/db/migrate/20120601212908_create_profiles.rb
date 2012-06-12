@@ -3,6 +3,7 @@ class CreateProfiles < ActiveRecord::Migration
     create_table :profiles do |t|
       t.string :first_name, :null => false
       t.string :last_name
+      t.string :gender
       t.string :document, :null => false, :unique => true
       t.string :phone
       t.string :address

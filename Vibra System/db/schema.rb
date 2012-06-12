@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20120602000819) do
   create_table "profiles", :force => true do |t|
     t.string   "first_name",                   :null => false
     t.string   "last_name"
+    t.string   "gender"
     t.string   "document",                     :null => false
     t.string   "phone"
     t.string   "address"

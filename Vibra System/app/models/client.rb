@@ -5,6 +5,7 @@
 #  id                           :integer(4)      not null, primary key
 #  first_name                   :string(255)     not null
 #  last_name                    :string(255)
+#  gender                       :string(255)
 #  document                     :string(255)     not null
 #  phone                        :string(255)
 #  address                      :string(255)
@@ -26,6 +27,28 @@
 
 class Client < Profile
 
+	after_create :confirmation_and_welcome_notification
+
 	has_many :schedules
+
+	def generate_password
+	    password = random_password
+		self.password = password
+		self.password_confirmation =password
+	end
+
+
+	private
+
+	def confirmation_and_welcome_notification
+		ClientMailer.registration_confirmation(self).deliver		
+	end
+
+	private
+
+	def random_password(size = 6)
+	  chars = (('a'..'z').to_a + ('0'..'9').to_a) - %w(i o 0 1 l 0)
+	  (1..size).collect{|a| chars[rand(chars.size)] }.join
+	end
 
 end

@@ -5,6 +5,7 @@
 #  id                           :integer(4)      not null, primary key
 #  first_name                   :string(255)     not null
 #  last_name                    :string(255)
+#  gender                       :string(255)
 #  document                     :string(255)     not null
 #  phone                        :string(255)
 #  address                      :string(255)
@@ -26,6 +27,8 @@
 
 class Employee < Profile
 
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true
 	#Associations
 
 end
