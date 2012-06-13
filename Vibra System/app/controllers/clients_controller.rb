@@ -1,11 +1,12 @@
 class ClientsController < ApplicationController
-
-  respond_to :html, :json
+  helper_method :sort_column, :sort_direction
+  
+  respond_to :html, :json, :js
 
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.order("first_name").page(params[:page]).per(10)
+    @clients = Client.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(10)
     respond_with(@clients)
   end
 
@@ -56,4 +57,15 @@ class ClientsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+  
+    def sort_column
+      Client.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+    
 end

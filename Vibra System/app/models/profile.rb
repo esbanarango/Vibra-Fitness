@@ -43,4 +43,14 @@ class Profile < ActiveRecord::Base
 					  
   before_save { |profile| profile.email = email.downcase }
 
+
+
+  def self.search(search)
+    if search
+      where('first_name LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
+
 end

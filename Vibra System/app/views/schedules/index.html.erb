@@ -1,0 +1,92 @@
+<!--
+<%- model_class = Schedule.new.class -%>
+<h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:start_time) %></th>
+      <th><%= model_class.human_attribute_name(:end_time) %></th>
+      <th><%= model_class.human_attribute_name(:date) %></th>
+      <th><%= model_class.human_attribute_name(:machine_num) %></th>
+      <th><%= model_class.human_attribute_name(:seat_id) %></th>
+      <th><%= model_class.human_attribute_name(:client_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr>
+        <td><%= link_to schedule.id, schedule_path(schedule) %></td>
+        <td><%= schedule.start_time %></td>
+        <td><%= schedule.end_time %></td>
+        <td><%= schedule.date %></td>
+        <td><%= schedule.machine_num %></td>
+        <td><%= schedule.seat_id %></td>
+        <td><%= schedule.client_id %></td>
+        <td><%=l schedule.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_schedule_path(schedule), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      schedule_path(schedule),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_schedule_path,
+            :class => 'btn btn-primary' %>
+
+-->
+
+<div class="row-fluid">
+         <!-- Portlet Set 1 -->
+         <div class="span12">
+           <!-- Portlet: Calendar -->
+             <div class="box">
+              <h4 class="box-header round-top">Event Calendar
+                  <a class="box-btn" title="close"><i class="icon-remove"></i></a>
+                  <a class="box-btn" title="toggle"><i class="icon-minus"></i></a>     
+                  <a class="box-btn" title="config" data-toggle="modal" href="#box-config-modal"><i class="icon-cog"></i></a>
+              </h4>         
+              <div class="box-container-toggle">
+                  <div class="box-content">
+          <h1>Calendar with draggable events</h1>
+                    <hr/>
+                    <div class="row-fluid">                 
+                        <div class="span10"><!-- calendar column -->
+                            <div id='calendar'></div><!-- calendar placeholder -->
+                        </div>
+                        <div class="span2"><!-- events column -->
+                            <h2>Events</h2>
+                            <hr />
+                            <!-- events which can be used in the calender -->
+                            <div id="external-events">
+                                <div class="external-event label">Default</div>
+                                <div class="external-event label label-success">New</div>                                    
+                                <div class="external-event label label-warning">Warning</div>                                    
+                                <div class="external-event label label-important">Important</div>                                    
+                                <div class="external-event label label-info">Info</div>
+                            </div>
+                        </div>                                                   
+                    </div>                  
+                  </div>
+              </div>
+            </div><!--/span-->
+         </div>
+         <!-- Portlet Set 3 --> 
+ 
+    </div><!--/span-->
+  </div><!--/row-->
+
+
+
+  <!-- Full Calender -->
+  <script type='text/javascript' src='scripts/fullcalendar/fullcalendar/fullcalendar.min.js'></script>

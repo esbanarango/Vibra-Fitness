@@ -1,35 +1,26 @@
 class SeatsController < ApplicationController
+
+  respond_to :html, :json, :js
+
   # GET /seats
   # GET /seats.json
   def index
     @seats = Seat.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @seats }
-    end
+    respond_with(@seats)
   end
 
   # GET /seats/1
   # GET /seats/1.json
   def show
     @seat = Seat.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @seat }
-    end
+    respond_with(@seat)
   end
 
   # GET /seats/new
   # GET /seats/new.json
   def new
     @seat = Seat.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @seat }
-    end
+    respond_with(@seat)
   end
 
   # GET /seats/1/edit
@@ -41,32 +32,16 @@ class SeatsController < ApplicationController
   # POST /seats.json
   def create
     @seat = Seat.new(params[:seat])
-
-    respond_to do |format|
-      if @seat.save
-        format.html { redirect_to @seat, notice: 'Seat was successfully created.' }
-        format.json { render json: @seat, status: :created, location: @seat }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @seat.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:success] = "Sede creada exitosamente" if @seat.save
+    respond_with(@seat)
   end
 
   # PUT /seats/1
   # PUT /seats/1.json
   def update
     @seat = Seat.find(params[:id])
-
-    respond_to do |format|
-      if @seat.update_attributes(params[:seat])
-        format.html { redirect_to @seat, notice: 'Seat was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @seat.errors, status: :unprocessable_entity }
-      end
-    end
+    flash[:success] = "Sede editada exitosamente" if @seat.update_attributes(params[:seat])
+    respond_with(@seat)
   end
 
   # DELETE /seats/1

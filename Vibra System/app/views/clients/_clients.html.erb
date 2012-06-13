@@ -1,0 +1,49 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+<table class="table table-condensed table-bordered table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th><%= sortable  "first_name", "Nombre"%></th>
+      <th><%= sortable  "last_name", "Apellido"%></th>
+      <th><%= sortable  "document", "Documento"%></th>
+      <th>Telefono</th>
+      <th>Dirección</th>
+      <th>Email</th>
+      <th>Celular</th>
+      <th>Empresa</th>
+      <th>Tel. Empresa</th>
+      <th>Cargo</th>
+      <th>Sede</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clients.each do |client| %>
+      <tr>
+        <td><%= link_to "Ver", client_path(client) %></td>
+        <td><%= client.first_name %></td>
+        <td><%= client.last_name %></td>
+        <td><%= client.document %></td>
+        <td><%= client.phone %></td>
+        <td><%= client.address %></td>
+        <td><%= client.email %></td>
+        <td><%= client.mobile %></td>
+        <td><%= client.company %></td>
+        <td><%= client.phone_company %></td>
+        <td><%= client.position %></td>
+        <td><%= Seat.find_by_id(client.seat_id).name %></td>
+        <td>
+          <%= link_to "Editar",
+                      edit_client_path(client), :class => 'btn btn-mini' %>
+          <!-- <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      client_path(client),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %> -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @clients, :window => 2, :remote => true%>
