@@ -26,7 +26,7 @@ VibraSystem::Application.configure do
     :domain         => 'gmail.com',
     :authentication => :login,
     :user_name      => 'marranoparael31@gmail.com',
-    :password       => 'maelos123'
+    :password       => 'xxxxx'
   }
 
   # Print deprecation notices to the Rails logger
