@@ -1,0 +1,24 @@
+<%= simple_form_for @plan, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :start_time %>
+  <%= f.input :end_time_datetime %>
+  <%= f.input :max_age %>
+  <%= f.input :min_age %>
+  <%= f.input :type %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                plans_path, :class => 'btn' %>
+  </div>
+<% end %>
+<div class="demo">
+
+<p>
+  <label for="amount">Price range:</label>
+  <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+</p>
+
+<div id="slider-range"></div>
+
+</div><!-- End demo -->

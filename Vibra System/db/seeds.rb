@@ -12,12 +12,12 @@ Seat.create!( name: "Laureles", address:"Cr 76 #34A-61", phone: "4445576", num_m
 
 Employee.create!( first_name: "admin", last_name:"admin", document:"admin", address:"", phone:"7777777", mobile:"7777777", email: "admin@admin.com", password: "adminadmin", password_confirmation: "adminadmin", seat_id:seat.id)
 
-99.times do |n|
+200.times do |n|
   first_name  		= Faker::Name.first_name
   last_name   		= Faker::Name.last_name
   gender			= (n%2) ? "Masculino" : "Femenino"
   document    		= 11111111+n
-  email 	  		= "example-#{n+1}@vibrafitness.com"
+  email 	  		= "#{n+1}@vibrafitness.com"
   password    		= "password"
   address			= Faker::Address.city + " " + Faker::Address.street_name + " " + Faker::Address.zip_code
   phone       		= Faker::PhoneNumber.phone_number

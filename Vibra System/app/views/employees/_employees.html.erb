@@ -7,9 +7,8 @@
       <th><%= sortable  "first_name", "Nombre"%></th>
       <th><%= sortable  "last_name", "Apellido"%></th>
       <th><%= sortable  "document", "Documento"%></th>
+      <th>Email</th>      
       <th>Teléfono</th>
-      <th>Dirección</th>
-      <th>Email</th>
       <th>Celular</th>
       <th>Sede</th>
     </tr>
@@ -21,9 +20,8 @@
         <td><%= employee.first_name %></td>
         <td><%= employee.last_name %></td>
         <td><%= employee.document %></td>
+        <td><%= employee.email %></td>        
         <td><%= employee.phone %></td>
-        <td><%= employee.address %></td>
-        <td><%= employee.email %></td>
         <td><%= employee.mobile %></td>
         <td><%= Seat.find_by_id(employee.seat_id).name %></td>
         <td>

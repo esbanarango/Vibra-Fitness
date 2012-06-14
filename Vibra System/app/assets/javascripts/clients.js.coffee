@@ -11,4 +11,6 @@ jQuery ->
   # Search form.
   $('#clients_search input').keyup (e) ->
     e.preventDefault()
+    $(@).addClass "loadingInput"
     $.get($('#clients_search').attr('action'), $('#clients_search').serialize(), null, 'script')
+    .complete(=> $(@).removeClass "loadingInput")

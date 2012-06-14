@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require jquery-ui/redmond
  *= require_tree .
 */
 
@@ -37,6 +38,10 @@ textarea {
   resize: vertical;
 }
 
+legend {
+  font-size: 29.5px !important;
+}
+
 .center {
   margin: 0 auto;
 }
@@ -51,6 +56,11 @@ textarea {
 {
     width: 10px;
     height: 10px;
+}
+
+.loadingInput{
+  background: #fff  url(/assets/loading_small.gif) no-repeat;
+  background-position: 149px 5px !important;
 }
 
 .spinner{

@@ -1,9 +1,9 @@
 <% provide(:employee, 'active') %>
 <%- model_class = Employee.new.class -%>
-<h1>Empleados</h1>
+<legend>Empleados</legend>
 
 <%= form_tag employees_path, :method => 'get', :id => "employees_search" do %>
-  <div style="float:right; margin-bottom:5px;">
+  <div style="margin-left:5px; margin-bottom:15px;">
 		  <div class="input-prepend">
 		    <span class="add-on" style="margin-right: -5px;"><i class="icon-search"></i></span>
 		    <%= text_field_tag :search, params[:search], :class => 'span2', :placeholder => 'Buscar...' %>

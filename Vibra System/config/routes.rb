@@ -9,6 +9,13 @@ VibraSystem::Application.routes.draw do
   resources :employees
   resources :seats
   resources :schedules
+  resources :settings
+
+  scope "/settings" do
+    resources :plans
+  end
+
+
   resources :sessions, only: [:new, :create, :destroy]
 
   match '/signin',  to: 'sessions#new'

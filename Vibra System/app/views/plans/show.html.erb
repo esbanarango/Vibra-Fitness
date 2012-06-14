@@ -1,0 +1,31 @@
+<%- model_class = @plan.class -%>
+<h1><%=t '.title', :default => model_class.model_name.human %></h1>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
+  <dd><%= @plan.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
+  <dd><%= @plan.description %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:start_time) %>:</strong></dt>
+  <dd><%= @plan.start_time %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:end_time_datetime) %>:</strong></dt>
+  <dd><%= @plan.end_time_datetime %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:max_age) %>:</strong></dt>
+  <dd><%= @plan.max_age %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:min_age) %>:</strong></dt>
+  <dd><%= @plan.min_age %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:type) %>:</strong></dt>
+  <dd><%= @plan.type %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              plans_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_plan_path(@plan), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              plan_path(@plan),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>

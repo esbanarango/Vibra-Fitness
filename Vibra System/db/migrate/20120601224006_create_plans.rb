@@ -4,7 +4,7 @@ class CreatePlans < ActiveRecord::Migration
       t.string :name, :null => false
       t.text :description
       t.datetime :start_time, :null => false
-      t.string :end_time_datetime, :null => false
+      t.datetime :end_time_datetime, :null => false
       t.integer :max_age
       t.integer :min_age
       t.string :type, :null => false

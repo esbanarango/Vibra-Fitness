@@ -7,13 +7,9 @@
       <th><%= sortable  "first_name", "Nombre"%></th>
       <th><%= sortable  "last_name", "Apellido"%></th>
       <th><%= sortable  "document", "Documento"%></th>
-      <th>Telefono</th>
-      <th>Dirección</th>
       <th>Email</th>
+      <th>Telefono</th>
       <th>Celular</th>
-      <th>Empresa</th>
-      <th>Tel. Empresa</th>
-      <th>Cargo</th>
       <th>Sede</th>
       <th></th>
     </tr>
@@ -25,13 +21,9 @@
         <td><%= client.first_name %></td>
         <td><%= client.last_name %></td>
         <td><%= client.document %></td>
+        <td><%= client.email %></td>        
         <td><%= client.phone %></td>
-        <td><%= client.address %></td>
-        <td><%= client.email %></td>
         <td><%= client.mobile %></td>
-        <td><%= client.company %></td>
-        <td><%= client.phone_company %></td>
-        <td><%= client.position %></td>
         <td><%= Seat.find_by_id(client.seat_id).name %></td>
         <td>
           <%= link_to "Editar",
