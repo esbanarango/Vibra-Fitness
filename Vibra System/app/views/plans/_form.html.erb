@@ -1,24 +1,28 @@
+<% provide(:settings, 'active') %>
 <%= simple_form_for @plan, :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :name %>
-  <%= f.input :description %>
-  <%= f.input :start_time %>
-  <%= f.input :end_time_datetime %>
-  <%= f.input :max_age %>
-  <%= f.input :min_age %>
-  <%= f.input :type %>
+  <div class="row" style="max-width:700px;">
+    <div id="formLeft" class="span6">
+      <%= f.input :name, :label => 'Nombre'%>
+      <%= f.input :start_time, :label => 'Hora Inicio', :as => :string, :input_html => { style: 'cursor:pointer;' } %>
+      <%= f.input :end_time, :label => 'Hora Fin', :as => :string, :input_html => { style: 'cursor:pointer;' } %>
+      <%= f.input :plan_type, :collection => ["Diario", "Sesiones"], :as => :radio,  :label => 'Tipo'%>
+      <div class="control-group">
+                <div class="controls">
+        <label  style="display:inline-block">Restricciones de edad:</label> <label style="display:inline-block" id="lAgeRange"></label>
+        <%= f.input :max_age, :label => false, :input_html => { style: 'display: none; cursor:pointer;' } %>
+        <%= f.input :min_age, :label => false, :input_html => { style: 'display: none; cursor:pointer;' } %>
+
+          <div id="slider-range" style="margin-top:-20px; max-width:200px;"></div> 
+        </div>
+      </div>
+    </div>
+    <div id="formRight" class="span6">
+      <%= f.input :description, :label => 'Descripción' %>
+    </div>
+  </div>
   <div class="form-actions">
-    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= f.button :submit, :class => 'btn-primary', :value => 'Guardar' %>
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 plans_path, :class => 'btn' %>
   </div>
 <% end %>
-<div class="demo">
-
-<p>
-  <label for="amount">Price range:</label>
-  <input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
-</p>
-
-<div id="slider-range"></div>
-
-</div><!-- End demo -->

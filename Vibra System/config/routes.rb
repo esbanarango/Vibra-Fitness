@@ -11,10 +11,7 @@ VibraSystem::Application.routes.draw do
   resources :schedules
   resources :settings
 
-  scope "/settings" do
-    resources :plans
-  end
-
+  resources :plans
 
   resources :sessions, only: [:new, :create, :destroy]
 

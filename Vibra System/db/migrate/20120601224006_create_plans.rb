@@ -3,11 +3,11 @@ class CreatePlans < ActiveRecord::Migration
     create_table :plans do |t|
       t.string :name, :null => false
       t.text :description
-      t.datetime :start_time, :null => false
-      t.datetime :end_time_datetime, :null => false
+      t.time :start_time, :null => false
+      t.time :end_time, :null => false
       t.integer :max_age
       t.integer :min_age
-      t.string :type, :null => false
+      t.string :plan_type, :null => false
 
       t.timestamps
     end

@@ -40,15 +40,15 @@ ActiveRecord::Schema.define(:version => 20120602000819) do
   end
 
   create_table "plans", :force => true do |t|
-    t.string   "name",              :null => false
+    t.string   "name",        :null => false
     t.text     "description"
-    t.datetime "start_time",        :null => false
-    t.string   "end_time_datetime", :null => false
+    t.time     "start_time",  :null => false
+    t.time     "end_time",    :null => false
     t.integer  "max_age"
     t.integer  "min_age"
-    t.string   "type",              :null => false
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.string   "plan_type",   :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "products", :force => true do |t|

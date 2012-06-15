@@ -35,7 +35,7 @@
           <a><img class="icon-user member-box-avatar"/></a>
           <span>
               <strong>Administrador</strong><br>
-              <a><%= current_user.first_name%></a><br>
+              <label><%= current_user.first_name.gsub(/^([a-z])/) { $1.capitalize }%></label>
               <span class="member-box-links"><%= link_to "Profile", employee_path(current_user) %> | <%= link_to "Salir", signout_path, method: "delete" %></span>
           </span>
         </div>
@@ -43,13 +43,13 @@
           <div class="well" style="padding: 8px 0;">
           <ul class="nav nav-list"> 
             <li class="nav-header">Planes</li>        
-            <li><a href="/settings/plans/new"><i class="icon-edit"></i> Crear</a></li>
-            <li><a href="grid.html"><i class="icon-th-large"></i> Lista</a></li>
+            <li class="<%=(yield(:new_plan))%>"><a href="/plans/new"><i class="icon-edit"></i> Crear</a></li>
+            <li class="<%=(yield(:list_plans))%>"><a href="/plans"><i class="icon-th-large"></i> Lista</a></li>
             <li class="nav-header">Productos</li>
-            <li><a href="typography.html"><i class="icon-edit"></i> Crear</a></li>
-            <li><a href="grid.html"><i class="icon-th-large"></i> Lista</a></li>
+            <li><a href="#" style="text-decoration: line-through;"><i class="icon-edit"></i> Crear</a></li>
+            <li><a href="#" style="text-decoration: line-through;"><i class="icon-th-large"></i> Lista</a></li>
             <li class="nav-header">Reservas</li>
-            <li><a class="cookie-delete" href="#"><i class="icon-calendar"></i> Fechas</a></li>
+            <li><a class="cookie-delete" href="#" style="text-decoration: line-through;"><i class="icon-calendar"></i> Fechas</a></li>
           </ul>
           </div>
         </div>
