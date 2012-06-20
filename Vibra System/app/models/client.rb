@@ -41,7 +41,7 @@ class Client < Profile
 	private
 
 	def confirmation_and_welcome_notification
-		#ClientMailer.registration_confirmation(self).deliver		
+		ClientMailer.registration_confirmation(self).deliver		
 	end
 
 	private

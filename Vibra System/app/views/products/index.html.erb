@@ -1,0 +1,46 @@
+<% provide(:settings, 'active') %>
+<% provide(:list_products, 'active') %>
+<%- model_class = Product.new.class -%>
+<legend>Productos</legend>
+<table class="table table-striped table-condensed">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Plan</th>      
+      <th>Número de sesiones</th>
+      <th>Precio</th>
+      <th>Precio en Efectivo</th>
+      <th>Vencimiento (Días)</th>
+      <th>Porcentaje Descuento Fidelización</th>
+      <th>Fidelización</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to "Ver", product_path(product) %></td>
+        <td><%= Plan.find_by_id(product.plan_id).name %></td>        
+        <td><%= product.num_sessions %></td>
+        <td>$ <%= product.price %></td>
+        <td>$ <%= product.cash_price %></td>
+        <td><%= product.expiration %></td>
+        <td><%= product.discount_pct %></td>
+        <td><%= product.num_pqt_fidelity %></td>
+        <td>
+          <%= link_to "Editar",
+                      edit_product_path(product), :class => 'btn btn-mini' %>
+          <!-- <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      product_path(product),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %> -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!-- <%= link_to t('.new', :default => t("helpers.links.new")),
+            new_product_path,
+            :class => 'btn btn-primary' %> -->

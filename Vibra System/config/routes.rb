@@ -13,6 +13,7 @@ VibraSystem::Application.routes.draw do
 
   #Settings
   resources :plans
+  resources :products
   resources :discounts
 
   resources :sessions, only: [:new, :create, :destroy]

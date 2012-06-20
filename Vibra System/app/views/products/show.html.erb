@@ -1,0 +1,31 @@
+<%- model_class = @product.class -%>
+<legend>Producto</legend>
+
+<dl class="dl-horizontal">
+  <dt><strong>Plan:</strong></dt>
+  <dd><%= Plan.find_by_id(@product.plan_id).name %></dd>  
+  <dt><strong>Número sesiones:</strong></dt>
+  <dd><%= @product.num_sessions %></dd>
+  <dt><strong>Precio:</strong></dt>
+  <dd>$ <%= @product.price %></dd>
+  <dt><strong>Precio en Efectivo:</strong></dt>
+  <dd>$ <%= @product.cash_price %></dd>
+  <dt><strong>Vencimiento (Días):</strong></dt>
+  <dd><%= @product.expiration %></dd>
+  <dt><strong>% Descuento:</strong></dt>
+  <dd><%= @product.discount_pct %></dd>
+  <dt><strong>Fidelización:</strong></dt>
+  <dd><%= @product.num_pqt_fidelity %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to "Atrás",
+              products_path, :class => 'btn'  %>
+  <%= link_to "Editar",
+              edit_product_path(@product), :class => 'btn' %>
+  <!-- <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              product_path(@product),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %> -->
+</div>

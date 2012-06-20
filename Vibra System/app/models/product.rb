@@ -15,5 +15,13 @@
 #
 
 class Product < ActiveRecord::Base
-  attr_accessible :cash_price, :discount_pct, :expiration, :num_pqt_fidelity, :num_sessions, :price
+  attr_accessible :cash_price, :discount_pct, :expiration, :num_pqt_fidelity, :num_sessions, :price, :plan_id
+
+  validates :num_sessions, presence: true
+  validates :price, presence: true
+  validates :cash_price, presence: true
+  validates :expiration, presence: true
+  validates :plan_id, presence: true
+
+
 end

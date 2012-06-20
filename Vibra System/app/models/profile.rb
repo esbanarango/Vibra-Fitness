@@ -47,7 +47,7 @@ class Profile < ActiveRecord::Base
 
   def self.search(search)
     if search
-      where('upper(first_name) LIKE ?', "%#{search}%")
+      where('upper(first_name) LIKE upper(?) or upper(last_name) LIKE upper(?) or document LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%")
     else
       scoped
     end

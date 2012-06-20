@@ -32,7 +32,7 @@ VibraSystem::Application.configure do
     :address              => "smtp.gmail.com",
     :port                 => 587,
     :user_name            => "alwaysspringninjas@gmail.com",
-    :password             => 'k4t4l1n4',
+    :password             => 'xxxxxx',
     :authentication       => "plain",
     :enable_starttls_auto => true
   }

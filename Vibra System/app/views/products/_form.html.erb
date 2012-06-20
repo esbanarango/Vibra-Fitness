@@ -1,0 +1,17 @@
+<% provide(:settings, 'active') %>
+<%= simple_form_for @product, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :plan_id, :label => 'Plan' do %>
+    <%= f.select :plan_id, Plan.all.map { |r| [r.name, r.id] }, :include_blank => false %>
+  <% end %>
+  <%= f.input :num_sessions, :label => 'Número de sesiones' %>
+  <%= f.input :price, :label => 'Precio' %>
+  <%= f.input :cash_price, :label => 'Precio en Efectivo' %>
+  <%= f.input :expiration, :label => 'Vencimiento (Días)' %>
+  <%= f.input :discount_pct, :label => 'Porcentaje Descuento Fidelización' %>
+  <%= f.input :num_pqt_fidelity, :label => 'Fidelización' %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary', :value => 'Guardar' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                products_path, :class => 'btn' %>
+  </div>
+<% end %>
