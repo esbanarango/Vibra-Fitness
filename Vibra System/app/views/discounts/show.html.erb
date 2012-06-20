@@ -1,0 +1,25 @@
+<%- model_class = @discount.class -%>
+<legend>Descuento</legend>
+
+<dl class="dl-horizontal">
+  <dt><strong>Nombre:</strong></dt>
+  <dd><%= @discount.name %></dd>
+  <dt><strong>Descripción:</strong></dt>
+  <dd><%= (@discount.description != "") ? @discount.description : "-" %></dd>
+  <dt><strong>Porcentaje:</strong></dt>
+  <dd><%= @discount.percentage %>%</dd>
+  <dt><strong>Sedes :</strong></dt>
+  <dd><%= @discount.seats.map{ |r| r.name }.join(', ') %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to "Atrás",
+              discounts_path, :class => 'btn'  %>
+  <%= link_to "Editar",
+              edit_discount_path(@discount), :class => 'btn' %>
+  <!-- <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              discount_path(@discount),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %> -->
+</div>

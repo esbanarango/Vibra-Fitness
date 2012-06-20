@@ -4,7 +4,6 @@ class PlansController < ApplicationController
 
   layout 'settings_layout'
 
-
   # GET /plans
   # GET /plans.json
   def index

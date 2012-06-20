@@ -29,4 +29,6 @@ class Seat < ActiveRecord::Base
 
   has_many :schedules
 
+  has_and_belongs_to_many :discounts
+
 end

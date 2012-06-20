@@ -16,6 +16,7 @@
 //= require twitter/bootstrap
 //= require spin.min.js
 //= require jquery-ui-timepicker.js
+//= require chosen.jquery.min.js
 
 
 

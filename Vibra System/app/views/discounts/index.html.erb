@@ -1,0 +1,38 @@
+<% provide(:settings, 'active') %>
+<% provide(:list_discounts, 'active') %>
+<%- model_class = Discount.new.class -%>
+<legend>Descuentos</legend>
+<table class="table table-striped table-condensed">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Nombre</th>
+      <th>Descripción</th>
+      <th>Porcentaje</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @discounts.each do |discount| %>
+      <tr>
+        <td><%= link_to "Ver", discount_path(discount) %></td>
+        <td><%= discount.name %></td>
+        <td><%= discount.description %></td>
+        <td><%= discount.percentage %>%</td>
+        <td>
+          <%= link_to "Editar",
+                      edit_discount_path(discount), :class => 'btn btn-mini' %>
+          <!--<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      discount_path(discount),
+                      :method => :delete,
+                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                      :class => 'btn btn-mini btn-danger' %>-->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!--<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_discount_path,
+            :class => 'btn btn-primary' %> -->

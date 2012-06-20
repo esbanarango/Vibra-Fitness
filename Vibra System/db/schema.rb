@@ -11,7 +11,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120602000819) do
+ActiveRecord::Schema.define(:version => 20120619220106) do
+
+  create_table "discounts", :force => true do |t|
+    t.string   "name",        :null => false
+    t.text     "description"
+    t.integer  "percentage",  :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "discounts_seats", :id => false, :force => true do |t|
+    t.integer  "discount_id"
+    t.integer  "seat_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "history_plans", :force => true do |t|
     t.integer  "num_sessions"

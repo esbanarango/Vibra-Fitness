@@ -1,0 +1,12 @@
+<% provide(:settings, 'active') %>
+<%= simple_form_for @discount, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :name, :label => 'Nombre' %>
+  <%= f.input :description, :label => 'Descripción', :input_html => {style: 'height: 110px;'} %>
+  <%= f.input :percentage, :label => 'Porcentaje' %>
+  <%= f.association :seats, :collection => Seat.all(:order => 'name'), :label => 'Aplicar a', :input_html => { style: 'display: none; ', data: { placeholder:'Sedes en las que aplica'} }  %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary', :value => 'Guardar' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                discounts_path, :class => 'btn' %>
+  </div>
+<% end %>
