@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(:version => 20120619220106) do
   end
 
   create_table "invoices", :force => true do |t|
-    t.date     "creation_date"
     t.date     "expiration_date"
     t.string   "city"
     t.decimal  "subtotal",        :precision => 12, :scale => 2
