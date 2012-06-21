@@ -40,7 +40,7 @@ class Client < Profile
 	end
 
 	def anyPlanActive?
-		return true if self.historyPlans.where('state = "Activo"').count > 0
+		return true if self.historyPlans.where('state = \'Activo\'').count > 0
 		return false		
 	end
 

@@ -22,8 +22,8 @@
         <td><%= link_to "Ver", product_path(product) %></td>
         <td><%= Plan.find_by_id(product.plan_id).name %></td>        
         <td><%= product.num_sessions %></td>
-        <td>$ <%= product.price %></td>
-        <td>$ <%= product.cash_price %></td>
+        <td>$<%= product.price %></td>
+        <td>$<%= product.cash_price %></td>
         <td><%= product.expiration %></td>
         <td><%= product.discount_pct %></td>
         <td><%= product.num_pqt_fidelity %></td>
