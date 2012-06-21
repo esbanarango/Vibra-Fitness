@@ -31,4 +31,6 @@ class Employee < Profile
   validates :password_confirmation, presence: true
 	#Associations
 
+  has_many :invoices
+
 end

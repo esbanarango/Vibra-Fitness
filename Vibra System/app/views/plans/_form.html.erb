@@ -1,10 +1,19 @@
 <% provide(:settings, 'active') %>
 <%= simple_form_for @plan, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="row" style="max-width:700px;">
-    <div id="formLeft" class="span6">
+    <div id="formLeft" class="span7" style=" min-width: 390px">
       <%= f.input :name, :label => 'Nombre'%>
-      <%= f.input :start_time, :label => 'Hora Inicio', :as => :string, :input_html => { style: 'cursor:pointer;' } %>
-      <%= f.input :end_time, :label => 'Hora Fin', :as => :string, :input_html => { style: 'cursor:pointer;' } %>
+
+
+      <%= f.input :start_time, :label => 'Hora Inicio', :wrapper => :prepend, :as => :string do %>
+        <span class="add-on"><i class="icon-time"></i></span><%= f.input_field :start_time, style: 'max-width: 185px; cursor:pointer;', :as => :string %>
+      <% end %>
+
+      <%= f.input :end_time, :label => 'Hora Fin', :wrapper => :prepend, :as => :string do %>
+        <span class="add-on"><i class="icon-time"></i></span><%= f.input_field :end_time, style: 'max-width: 185px; cursor:pointer;', :as => :string %>
+      <% end %>
+
+
       <%= f.input :plan_type, :collection => ["Diario", "Sesiones"], :as => :radio,  :label => 'Tipo'%>
       <div class="control-group">
                 <div class="controls">
@@ -16,7 +25,7 @@
         </div>
       </div>
     </div>
-    <div id="formRight" class="span6">
+    <div id="formRight" class="span5">
       <%= f.input :description, :label => 'Descripción' %>
     </div>
   </div>

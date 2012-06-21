@@ -14,5 +14,9 @@
 #
 
 class HistoryPlan < ActiveRecord::Base
-  attr_accessible :expiration_date, :last_session_date, :num_sessions, :state
+  attr_accessible :expiration_date, :last_session_date, :num_sessions, :state, :client_id, :product_id
+
+
+  belongs_to :product
+  belongs_to :client
 end

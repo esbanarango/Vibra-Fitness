@@ -4,10 +4,21 @@
     <%= f.select :plan_id, Plan.all.map { |r| [r.name, r.id] }, :include_blank => false %>
   <% end %>
   <%= f.input :num_sessions, :label => 'Número de sesiones' %>
-  <%= f.input :price, :label => 'Precio' %>
-  <%= f.input :cash_price, :label => 'Precio en Efectivo' %>
+
+  <%= f.input :price,:label => 'Precio', :wrapper => :prepend do %>
+    <span class="add-on">$</span><%= f.input_field :price, style: 'width: 185px' %>
+  <% end %>
+
+  <%= f.input :cash_price, :label => 'Precio en Efectivo', :wrapper => :prepend do %>
+    <span class="add-on">$</span><%= f.input_field :cash_price, style: 'width: 185px' %>
+  <% end %>
+
   <%= f.input :expiration, :label => 'Vencimiento (Días)' %>
-  <%= f.input :discount_pct, :label => 'Porcentaje Descuento Fidelización' %>
+
+  <%= f.input :discount_pct, :label => 'Descuento Fidelización', :wrapper => :prepend do %>
+    <span class="add-on">%</span><%= f.input_field :discount_pct, style: 'width: 185px' %>
+  <% end %>
+
   <%= f.input :num_pqt_fidelity, :label => 'Fidelización' %>
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary', :value => 'Guardar' %>

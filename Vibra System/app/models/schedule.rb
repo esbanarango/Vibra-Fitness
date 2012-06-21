@@ -14,7 +14,14 @@
 #
 
 class Schedule < ActiveRecord::Base
-  attr_accessible :date, :end_time, :machine_num, :start_time
+  attr_accessible :date, :end_time, :machine_num, :start_time, :seat_id
+
+  validates :start_time, presence: true
+  validates :end_time, presence: true
+  validates :date, presence: true
+  validates :machine_num, presence: true
+  validates :seat_id, presence: true
+
   
   belongs_to :client
   belongs_to :seat

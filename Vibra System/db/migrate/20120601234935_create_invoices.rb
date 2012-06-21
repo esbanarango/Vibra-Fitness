@@ -1,7 +1,6 @@
 class CreateInvoices < ActiveRecord::Migration
   def change
     create_table :invoices do |t|
-      t.date :creation_date
       t.date :expiration_date
       t.string :city
       t.decimal :subtotal, :precision => 12, :scale => 2

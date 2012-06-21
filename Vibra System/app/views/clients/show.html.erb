@@ -2,41 +2,81 @@
 <%- model_class = @client.class -%>
 <legend>Cliente</legend>
 
-<dl class="dl-horizontal">
-  <dt><strong>Nombre:</strong></dt>
-  <dd><%= @client.first_name %></dd>
-  <dt><strong>Apellido:</strong></dt>
-  <dd><%= (@client.last_name != "") ? @client.last_name : "-" %></dd>
-  <dt><strong>Documento:</strong></dt>
-  <dd><%= @client.document %></dd>
-  <dt><strong>Telefono:</strong></dt>
-  <dd><%= (@client.phone != "") ? @client.phone : "-" %></dd>
-  <dt><strong>Dirección:</strong></dt>
-  <dd><%= (@client.address != "") ? @client.address : "-" %></dd>
-  <dt><strong>Email:</strong></dt>
-  <dd><%= @client.email %></dd>
-  <dt><strong>Género:</strong></dt>
-  <dd><%= @client.gender %></dd>
-  <dt><strong>Celular:</strong></dt>
-  <dd><%= (@client.mobile != "") ? @client.mobile : "-" %></dd>
-  <dt><strong>Empresa:</strong></dt>
-  <dd><%= (@client.company != "") ? @client.company : "-" %></dd>
-  <dt><strong>Telefono Empresa:</strong></dt>
-  <dd><%= (@client.phone_company != "") ? @client.phone_company : "-" %></dd>
-  <dt><strong>Cargo:</strong></dt>
-  <dd><%= (@client.position != "") ? @client.position : "-" %></dd>
-  <dt><strong>Sede:</strong></dt>
-  <dd><%= Seat.find_by_id(@client.seat_id).name %></dd>
-</dl>
+<div class="span6">
 
-<div class="form-actions">
-  <%= link_to "Atrás",
-              clients_path, :class => 'btn'  %>
-  <%= link_to "Editar",
-              edit_client_path(@client), :class => 'btn' %>
-   <!-- <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              client_path(@client),
-              :method => 'delete',
-              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-              :class => 'btn btn-danger' %> -->
+  <h3><%= @client.first_name+" "+@client.last_name%> </h3>
+
+  <dl class="dl-horizontal">
+    <dt><strong>Documento:</strong></dt>
+    <dd><%= @client.document %></dd>
+    <dt><strong>Telefono:</strong></dt>
+    <dd><%= (@client.phone != "") ? @client.phone : "-" %></dd>
+    <dt><strong>Dirección:</strong></dt>
+    <dd><%= (@client.address != "") ? @client.address : "-" %></dd>
+    <dt><strong>Email:</strong></dt>
+    <dd><%= @client.email %></dd>
+    <dt><strong>Género:</strong></dt>
+    <dd><%= @client.gender %></dd>
+    <dt><strong>Celular:</strong></dt>
+    <dd><%= (@client.mobile != "") ? @client.mobile : "-" %></dd>
+    <dt><strong>Empresa:</strong></dt>
+    <dd><%= (@client.company != "") ? @client.company : "-" %></dd>
+    <dt><strong>Telefono Empresa:</strong></dt>
+    <dd><%= (@client.phone_company != "") ? @client.phone_company : "-" %></dd>
+    <dt><strong>Cargo:</strong></dt>
+    <dd><%= (@client.position != "") ? @client.position : "-" %></dd>
+    <dt><strong>Sede:</strong></dt>
+    <dd><%= Seat.find_by_id(@client.seat_id).name %></dd>
+  </dl>
+
+  <div class="form-actions">
+    <%= link_to "Atrás",
+                clients_path, :class => 'btn'  %>
+    <%= link_to "Editar Información",
+                edit_client_path(@client), :class => 'btn' %>
+     <!-- <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                client_path(@client),
+                :method => 'delete',
+                :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+                :class => 'btn btn-danger' %> -->                 
+  </div>
+
+</div>
+
+<div class="span6">
+    <!-- CLIENT HAS ANY ACTIVE PLAN? -->
+  <% if !@client.anyPlanActive? then %>
+    <div class="alert alert-error">
+      <h4 class="alert-heading">Alerta!</h4>
+      Este usuario no tiene ningún plan activo en el momento.
+    </div>
+  <% end %>
+
+  <h3> Historial de planes  
+
+    <div style="float: right">
+          <%= link_to "Facturar nuevo plan", new_client_invoice_path(@client), :class => 'btn btn-small btn-success' %>
+    </div> 
+
+  </h3>
+  <dl class="dl-horizontal">
+    <table class="table table-striped table-condensed table-bordered">
+      <thead>
+        <tr>
+          <th>Estado</th>
+          <th>Plan</th>
+          <th>Fecha Vencimiento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @client.historyPlans.each do |historyplan| %>
+          <tr>
+            <td><%=  stateUserPlan(historyplan.state).html_safe %></td>
+            <td><%= historyplan.product.plan.name %></td>
+            <td><%= historyplan.expiration_date %></td>
+        <% end %>
+      </tbody>
+    </table>
+  </dl>
+
 </div>

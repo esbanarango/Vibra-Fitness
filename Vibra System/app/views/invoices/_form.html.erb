@@ -1,0 +1,30 @@
+<%= simple_form_for ([@client, @invoice]), :html => { :class => 'form-horizontal' } do |f| %>
+
+  <%= f.input :expiration_date, :label => 'Fecha de vencimiento', :wrapper => :prepend, :as => :string do %>
+    <span class="add-on"><i class="icon-calendar"></i></span><%= f.input_field :expiration_date, style: 'max-width: 185px; cursor:pointer;', :as => :string %>
+  <% end %>
+
+
+  <%= f.input :city, :collection => [ "Medellin", "Envigado", "Bello"], :label => 'Ciudad' %>
+  <%= f.input :quantity %>
+
+  <%= f.input :subtotal, :label => 'Sub-Total', :wrapper => :prepend do %>
+    <span class="add-on">$</span><%= f.input_field :subtotal, style: 'width: 185px' %>
+  <% end %>
+
+
+  <%= f.input :iva, :label => 'IVA', :wrapper => :prepend do %>
+    <span class="add-on">%</span><%= f.input_field :iva, style: 'width: 185px' %>
+  <% end %>
+
+  <%= f.input :total, :label => 'Total', :wrapper => :prepend do %>
+    <span class="add-on">$</span><%= f.input_field :total, style: 'width: 185px' %>
+  <% end %>
+
+  <%= f.input :product_id %>
+  <div class="form-actions">
+    <!--<%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                client_invoices_path, :class => 'btn' %>-->
+  </div>
+<% end %>

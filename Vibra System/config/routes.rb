@@ -5,7 +5,10 @@ VibraSystem::Application.routes.draw do
   match '/about',   to: 'static_pages#about'
   match '/error', to: 'static_pages#error'
 
-  resources :clients
+  resources :clients do
+    resources :invoices
+  end
+
   resources :employees
   resources :seats
   resources :schedules
@@ -17,6 +20,7 @@ VibraSystem::Application.routes.draw do
   resources :discounts
 
   resources :sessions, only: [:new, :create, :destroy]
+
 
   match '/signin',  to: 'sessions#new'
   match '/signout', to: 'sessions#destroy', via: :delete

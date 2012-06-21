@@ -30,6 +30,8 @@ class Client < Profile
 	after_create :confirmation_and_welcome_notification
 
 	has_many :schedules
+	has_many :historyPlans
+	has_many :invoices
 
 	def generate_password
 	    password = random_password
@@ -37,11 +39,15 @@ class Client < Profile
 		self.password_confirmation =password
 	end
 
+	def anyPlanActive?
+		return true if self.historyPlans.where('state = "Activo"').count > 0
+		return false		
+	end
 
 	private
 
 	def confirmation_and_welcome_notification
-		ClientMailer.registration_confirmation(self).deliver		
+		#ClientMailer.registration_confirmation(self).deliver		
 	end
 
 	private

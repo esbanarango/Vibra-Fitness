@@ -1,0 +1,37 @@
+<%- model_class = @invoice.class -%>
+<h1><%=t '.title', :default => model_class.model_name.human %></h1>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:creation_date) %>:</strong></dt>
+  <dd><%= @invoice.creation_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:expiration_date) %>:</strong></dt>
+  <dd><%= @invoice.expiration_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:city) %>:</strong></dt>
+  <dd><%= @invoice.city %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:subtotal) %>:</strong></dt>
+  <dd><%= @invoice.subtotal %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:iva) %>:</strong></dt>
+  <dd><%= @invoice.iva %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total) %>:</strong></dt>
+  <dd><%= @invoice.total %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:quantity) %>:</strong></dt>
+  <dd><%= @invoice.quantity %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:client_id) %>:</strong></dt>
+  <dd><%= @invoice.client_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:employee_id) %>:</strong></dt>
+  <dd><%= @invoice.employee_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:product_id) %>:</strong></dt>
+  <dd><%= @invoice.product_id %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              invoices_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_invoice_path(@invoice), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              invoice_path(@invoice),
+              :method => 'delete',
+              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
+              :class => 'btn btn-danger' %>
+</div>

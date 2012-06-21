@@ -3,7 +3,6 @@
 # Table name: invoices
 #
 #  id              :integer(4)      not null, primary key
-#  creation_date   :date
 #  expiration_date :date
 #  city            :string(255)
 #  subtotal        :decimal(12, 2)
@@ -18,6 +17,10 @@
 #
 
 class Invoice < ActiveRecord::Base
-  attr_accessible :city, :creation_date, :expiration_date, :iva, :quantity, :subtotal, :total
+  attr_accessible :city, :expiration_date, :iva, :quantity, :subtotal, :total
   
+  belongs_to :client
+  belongs_to :employee
+  belongs_to :product
+
 end
