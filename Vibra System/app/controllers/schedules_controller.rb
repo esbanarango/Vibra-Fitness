@@ -1,13 +1,14 @@
 class SchedulesController < ApplicationController
+
+  respond_to :html, :json, :js
+
   # GET /schedules
   # GET /schedules.json
   def index
-    @schedules = Schedule.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @schedules }
-    end
+    @seat = Seat.find(params[:seat_id])
+    @schedules = @seat.schedules
+    @date = params[:month] ? Date.parse(params[:month]) : Date.today
+    respond_with(@seat,@schedules,@date)
   end
 
   # GET /schedules/1

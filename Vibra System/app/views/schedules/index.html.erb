@@ -40,53 +40,23 @@
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_schedule_path,
-            :class => 'btn btn-primary' %>
 
 -->
+<legend><%= @seat.name%></legend>
+<div id="calendar">
+  <h2 id="month">
+    <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-01") %>
+    <%= h @date.strftime("%B %Y") %>
+    <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-01") %>
+  </h2>
+  <%= calendar_for @schedules, :year => @date.year, :month => @date.month do |s| %>
+    <%= s.head('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo') %>
+    <%= s.day do |day, schedules| %>
+      <%= day.day %>
+      <% schedules.each do |schedule| %>
+        <%= h(schedule.date) %>
+      <% end %>
+    <% end %>
+  <% end %>
 
-<div class="row-fluid">
-         <!-- Portlet Set 1 -->
-         <div class="span12">
-           <!-- Portlet: Calendar -->
-             <div class="box">
-              <h4 class="box-header round-top">Event Calendar
-                  <a class="box-btn" title="close"><i class="icon-remove"></i></a>
-                  <a class="box-btn" title="toggle"><i class="icon-minus"></i></a>     
-                  <a class="box-btn" title="config" data-toggle="modal" href="#box-config-modal"><i class="icon-cog"></i></a>
-              </h4>         
-              <div class="box-container-toggle">
-                  <div class="box-content">
-          <h1>Calendar with draggable events</h1>
-                    <hr/>
-                    <div class="row-fluid">                 
-                        <div class="span10"><!-- calendar column -->
-                            <div id='calendar'></div><!-- calendar placeholder -->
-                        </div>
-                        <div class="span2"><!-- events column -->
-                            <h2>Events</h2>
-                            <hr />
-                            <!-- events which can be used in the calender -->
-                            <div id="external-events">
-                                <div class="external-event label">Default</div>
-                                <div class="external-event label label-success">New</div>                                    
-                                <div class="external-event label label-warning">Warning</div>                                    
-                                <div class="external-event label label-important">Important</div>                                    
-                                <div class="external-event label label-info">Info</div>
-                            </div>
-                        </div>                                                   
-                    </div>                  
-                  </div>
-              </div>
-            </div><!--/span-->
-         </div>
-         <!-- Portlet Set 3 --> 
- 
-    </div><!--/span-->
-  </div><!--/row-->
-
-
-
-  <!-- Full Calender -->
-  <script type='text/javascript' src='scripts/fullcalendar/fullcalendar/fullcalendar.min.js'></script>
+</div>

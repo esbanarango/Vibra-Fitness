@@ -9,4 +9,11 @@ class SettingsController < ApplicationController
 
   end
 
+  # GET /settings/seats_agenda
+  def seats
+    @seats = Seat.all
+    respond_with(@seats)
+  end
+
+
 end

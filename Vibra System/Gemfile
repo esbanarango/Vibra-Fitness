@@ -5,8 +5,8 @@ gem 'rails', '3.2.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'mysql2'
-#gem 'pg'
+#gem 'mysql2'
+gem 'pg'
 
 group :development do
   gem "rspec-rails", "~> 2.10.1"
@@ -39,6 +39,12 @@ end
 gem 'jquery-rails'
 
 gem 'simple_form'
+
+
+gem "watu_table_builder", :require => "table_builder"
+
+# Composite key support for ActiveRecord
+gem "composite_primary_keys", "~> 5.0.6"
 
 # File attachments for model, ie: profile pictures
 gem "paperclip", "~> 3.0.4"

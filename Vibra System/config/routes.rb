@@ -10,11 +10,16 @@ VibraSystem::Application.routes.draw do
   end
 
   resources :employees
-  resources :seats
-  resources :schedules
-  resources :settings
+  resources :seats do
+    resources :schedules
+  end
 
   #Settings
+  match '/settings(.:format)',  to: 'settings#index', via: 'GET', :as => "settings"
+  match '/settings/seats_agenda',  to: 'settings#seats', via: 'GET', :as => "seats_agenda"
+
+
+
   resources :plans
   resources :products
   resources :discounts
