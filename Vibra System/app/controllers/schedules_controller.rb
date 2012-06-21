@@ -8,7 +8,8 @@ class SchedulesController < ApplicationController
     @seat = Seat.find(params[:seat_id])
     @schedules = @seat.schedules
     @date = params[:month] ? Date.parse(params[:month]) : Date.today
-    respond_with(@seat,@schedules,@date)
+    render :layout => "settings_layout"
+
   end
 
   # GET /schedules/1
@@ -26,11 +27,8 @@ class SchedulesController < ApplicationController
   # GET /schedules/new.json
   def new
     @schedule = Schedule.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @schedule }
-    end
+    @seat = Seat.find(params[:seat_id])
+    render :layout => "settings_layout"
   end
 
   # GET /schedules/1/edit

@@ -1,48 +1,6 @@
-<!--
-<%- model_class = Schedule.new.class -%>
-<h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:start_time) %></th>
-      <th><%= model_class.human_attribute_name(:end_time) %></th>
-      <th><%= model_class.human_attribute_name(:date) %></th>
-      <th><%= model_class.human_attribute_name(:machine_num) %></th>
-      <th><%= model_class.human_attribute_name(:seat_id) %></th>
-      <th><%= model_class.human_attribute_name(:client_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @schedules.each do |schedule| %>
-      <tr>
-        <td><%= link_to schedule.id, schedule_path(schedule) %></td>
-        <td><%= schedule.start_time %></td>
-        <td><%= schedule.end_time %></td>
-        <td><%= schedule.date %></td>
-        <td><%= schedule.machine_num %></td>
-        <td><%= schedule.seat_id %></td>
-        <td><%= schedule.client_id %></td>
-        <td><%=l schedule.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_schedule_path(schedule), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      schedule_path(schedule),
-                      :method => :delete,
-                      :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
--->
-<legend><%= @seat.name%></legend>
+<% provide(:settings, 'active') %>
+<% provide(:conf_agenda, 'active') %>
+<legend>Agenda - <%= @seat.name%></legend>
 <div id="calendar">
   <h2 id="month">
     <%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-01") %>
@@ -50,12 +8,19 @@
     <%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-01") %>
   </h2>
   <%= calendar_for @schedules, :year => @date.year, :month => @date.month do |s| %>
-    <%= s.head('Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo') %>
-    <%= s.day do |day, schedules| %>
+    <%= s.head('Domingo','Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sábado') %>
+    <%= s.day(:day_method => :date) do |day, schedules| %>
+    <% puts schedules.inspect %>
       <%= day.day %>
-      <% schedules.each do |schedule| %>
-        <%= h(schedule.date) %>
-      <% end %>
+      <% if day >= Date.today %>
+        <% if schedules.count == 0 %>
+         <a style="float:right;" href="schedules/new" class="label label-important"><i style="color:#fff;" class="icon-pencil icon-white"></i> Agendar</a>
+        <% else %>
+         <a style="float:right;" href="#" class="label label-info"><i style="color:#fff;" class="icon-align-justify icon-white"></i> Ver</a>
+        <% end %>
+      <%end%>
+
+
     <% end %>
   <% end %>
 
