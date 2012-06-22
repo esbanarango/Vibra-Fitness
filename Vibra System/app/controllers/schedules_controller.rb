@@ -27,7 +27,10 @@ class SchedulesController < ApplicationController
   # GET /schedules/new.json
   def new
     @schedule = Schedule.new
+    @conf_schedule = ConfSchedule.new
     @seat = Seat.find(params[:seat_id])
+    @schedules = @seat.schedules.where("date = ?",params[:date])
+    @dateSchedule = params[:date] # Necesary to initialize the times
     render :layout => "settings_layout"
   end
 
@@ -52,6 +55,15 @@ class SchedulesController < ApplicationController
     end
   end
 
+  # POST /schedules_fast
+  # POST /schedules_fast.json
+  def create_fast
+    @conf_schedule = ConfSchedule.new(params[:conf_schedule])
+    @conf_schedule.generate
+
+  end
+
+
   # PUT /schedules/1
   # PUT /schedules/1.json
   def update
@@ -71,12 +83,8 @@ class SchedulesController < ApplicationController
   # DELETE /schedules/1
   # DELETE /schedules/1.json
   def destroy
+    @scheduleId = params[:id]
     @schedule = Schedule.find(params[:id])
     @schedule.destroy
-
-    respond_to do |format|
-      format.html { redirect_to schedules_url }
-      format.json { head :no_content }
-    end
   end
 end

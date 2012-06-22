@@ -1,5 +1,46 @@
+<% provide(:settings, 'active') %>
 <% provide(:conf_agenda, 'active') %>
 <%- model_class = @schedule.class -%>
-<h1><%=t '.title', :default => t('helpers.titles.new', :model => model_class.model_name.human,
-                               :default => "New #{model_class.model_name.human}") %></h1>
-<%= render :partial => 'form' %>
+<h2>Configuración  Agenda - <em><%=@dateSchedule%></em> </h2>
+
+<div class="tabbable tabs-below" style="margin-top:5px"> <!-- Only required for left/right tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#tab1" data-toggle="tab">Configuración rápida</a></li>
+    <li><a href="#tab2" data-toggle="tab">Configuración detallada</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+    	<%= render :partial => 'form_fast' %>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <%= render :partial => 'form' %>
+    </div>
+  </div>
+</div>
+
+<div class="page-header">
+	<h3>Horario</h3>
+</div>
+
+<div id="actual_schedule">
+	<table class="table table-striped table-condensed table-bordered">
+	  <thead>
+	    <tr>
+	      <th>Empieza</th>
+	      <th>Termina</th>
+	      <th style="width:5%;"></th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <% @schedules.each do |schedule| %>
+	      <tr>
+	        <td><%= schedule.start_time %></td>
+	        <td><%= schedule.end_time %></td>
+	        <td>
+	         <%= link_to "Eliminar", seat_schedule_path(@seat,schedule), :class => 'btn btn-mini btn-danger deleteSchedule' %>
+	        </td>
+	      </tr>
+	    <% end %>
+	  </tbody>
+	</table>
+</div>

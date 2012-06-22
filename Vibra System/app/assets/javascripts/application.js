@@ -17,6 +17,7 @@
 //= require spin.min.js
 //= require jquery-ui-timepicker.js
 //= require chosen.jquery.min.js
+//= require jquery.validate.js
 
 
 

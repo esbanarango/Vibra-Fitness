@@ -14,9 +14,9 @@
       <%= day.day %>
       <% if day >= Date.today %>
         <% if schedules.count == 0 %>
-         <a style="float:right;" href="schedules/new" class="label label-important"><i style="color:#fff;" class="icon-pencil icon-white"></i> Agendar</a>
+         <a style="float:right;" href="schedules/<%=day%>/new" class="label label-important"><i style="color:#fff;" class="icon-pencil icon-white"></i> Agendar</a>
         <% else %>
-         <a style="float:right;" href="#" class="label label-info"><i style="color:#fff;" class="icon-align-justify icon-white"></i> Ver</a>
+         <a style="float:right;" href="schedules/<%=day%>/new" class="label label-info"><i style="color:#fff;" class="icon-align-justify icon-white"></i> Ver</a>
         <% end %>
       <%end%>
 
