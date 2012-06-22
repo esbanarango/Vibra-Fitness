@@ -6,7 +6,7 @@
 #  start_time  :time            not null
 #  end_time    :time            not null
 #  date        :date            not null
-#  machine_num :integer(4)      not null
+#  machine_num :integer(4)      
 #  seat_id     :integer(4)      not null
 #  client_id   :integer(4)
 #  created_at  :datetime        not null
@@ -19,7 +19,6 @@ class Schedule < ActiveRecord::Base
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :date, presence: true
-  validates :machine_num, presence: true
   validates :seat_id, presence: true
 
   

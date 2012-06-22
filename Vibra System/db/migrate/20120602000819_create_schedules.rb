@@ -4,7 +4,7 @@ class CreateSchedules < ActiveRecord::Migration
       t.time :start_time, :null => false
       t.time :end_time, :null => false
       t.date :date, :null => false
-      t.integer :machine_num, :null => false
+      t.integer :machine_num
       t.integer :seat_id, :null => false
       t.integer :client_id
 
