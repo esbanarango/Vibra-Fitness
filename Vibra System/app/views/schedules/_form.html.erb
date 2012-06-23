@@ -1,11 +1,16 @@
 <% provide(:settings, 'active') %>
 <%= simple_form_for ([@seat, @schedule]), :html => { :class => 'form-horizontal' } do |f| %>
-  <%= f.input :start_time %>
-  <%= f.input :end_time %>
-  <%= f.input :date %>
+
+<input type="hidden" name="schedule[date]" value="<%=@dateSchedule%>" />
+<%= f.input :start_time, :label => 'Hora Empieza', :wrapper => :prepend, :as => :string do %>
+<span class="add-on"><i class="icon-time"></i></span><%= f.input_field :start_time, style: 'max-width: 185px; cursor:pointer;', :as => :string %>
+<% end %>
+
+<%= f.input :end_time, :label => 'Hora Termina', :wrapper => :prepend, :as => :string do %>
+<span class="add-on"><i class="icon-time"></i></span><%= f.input_field :end_time, style: 'max-width: 185px; cursor:pointer;', :as => :string %>
+<% end %>
+
   <div class="form-actions">
-    <%= f.button :submit, :class => 'btn-primary' %>
-    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                seat_schedules_path(@seat), :class => 'btn' %>
+    <%= f.button :submit, :class => 'btn-primary', :value => 'Guardar' %>
   </div>
 <% end %>

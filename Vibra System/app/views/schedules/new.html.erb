@@ -10,37 +10,31 @@
   </ul>
   <div class="tab-content">
     <div class="tab-pane active" id="tab1">
-    	<%= render :partial => 'form_fast' %>
+    	<div class="formExplenations">
+    		<h6>Configuración rápida</h6>
+    		<p>Esta configuración le permite generar todos los turnos simplemente ingresando <em>Hora de Inicio</em>, <em>Hora de Finalización</em>, <em>Duración de las sesiones</em> y <em>Descanso entre sesiones</em></p>
+    	
+    		<div class="notaExplenations">
+    			<p><span class="label label-important">Importante</span> » Al generar, se borrarán los turnos qua hayan sido creados para este dia.</p>
+    		</div>
+    	</div>
+
+    	<%= render :partial => 'form_fast' %>    			
     </div>
     <div class="tab-pane" id="tab2">
-      <%= render :partial => 'form' %>
+    	<div class="formExplenations">
+    		<h6>Configuración detallada</h6>
+    		<p>Esta configuración le permite generar los turnos uno por uno simplemente ingresando <em>Hora de Inicio</em> y <em>Hora de Finalización</em> del turno deseado</p>
+    	</div>
+    	<%= render :partial => 'form' %>
     </div>
   </div>
 </div>
 
 <div class="page-header">
-	<h3>Horario</h3>
+	<h3>Horario Actual</h3>
 </div>
 
 <div id="actual_schedule">
-	<table class="table table-striped table-condensed table-bordered">
-	  <thead>
-	    <tr>
-	      <th>Empieza</th>
-	      <th>Termina</th>
-	      <th style="width:5%;"></th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <% @schedules.each do |schedule| %>
-	      <tr>
-	        <td><%= schedule.start_time %></td>
-	        <td><%= schedule.end_time %></td>
-	        <td>
-	         <%= link_to "Eliminar", seat_schedule_path(@seat,schedule), :class => 'btn btn-mini btn-danger deleteSchedule' %>
-	        </td>
-	      </tr>
-	    <% end %>
-	  </tbody>
-	</table>
+	<%= render :partial => 'schedule_list' %>  
 </div>

@@ -60,7 +60,8 @@ class SchedulesController < ApplicationController
   def create_fast
     @conf_schedule = ConfSchedule.new(params[:conf_schedule])
     @conf_schedule.generate
-
+    @seat = Seat.find(params[:conf_schedule][:seat_id])
+    @schedules = @seat.schedules.where("date = ?",params[:conf_schedule][:date])
   end
 
 

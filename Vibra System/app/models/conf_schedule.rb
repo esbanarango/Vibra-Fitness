@@ -26,12 +26,16 @@ class ConfSchedule
 	end
 
 	def generate
-		puts "Velas antes--------"
 		limit = Time.parse(self.date+" "+self.end_time)
 		actual = Time.parse(self.date+" "+self.start_time)
+
+		#Destroy all the actual turns
+		seat = Seat.find(self.seat_id)
+		seat.schedules.where("date = ?",self.date).delete_all
+
+		#Generate all the turns
 		while(limit > actual) do 
 			actualEnd = actual + (self.duration*60)
-			puts actual.to_s + "-" + actualEnd.to_s
 			Schedule.create!(date: self.date, end_time: actualEnd.to_s , start_time: actual.to_s, seat_id: self.seat_id)
 			actual = actual + (self.duration+self.break_duration)*60
 		end
