@@ -39,3 +39,7 @@ var opts = {
 };
 var target = document.getElementById('cargando');
 var spinner = new Spinner(opts).spin(target);
+
+jQuery.fn.reset = function () {
+  $(this).each (function() { this.reset(); });
+}

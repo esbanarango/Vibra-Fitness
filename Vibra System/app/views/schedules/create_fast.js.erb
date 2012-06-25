@@ -1,1 +1,6 @@
 $("#actual_schedule").html(" <%= j render :partial => 'schedule_list' %>  ")
+$("#new_conf_schedule").reset();
+$("#tab1").slideUp("slow", function(){
+	$("#tab1link, #tab1").removeClass("active");
+	$("#tab1").css("display","");
+});

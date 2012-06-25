@@ -1,6 +1,7 @@
 <% provide(:settings, 'active') %>
-<%= simple_form_for ([@seat, @schedule]), :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for ([@seat, @schedule]), remote: true, :html => { :class => 'form-horizontal' } do |f| %>
 
+<input type="hidden" name="schedule[seat_id]" value="<%=@seat.id%>" />
 <input type="hidden" name="schedule[date]" value="<%=@dateSchedule%>" />
 <%= f.input :start_time, :label => 'Hora Empieza', :wrapper => :prepend, :as => :string do %>
 <span class="add-on"><i class="icon-time"></i></span><%= f.input_field :start_time, style: 'max-width: 185px; cursor:pointer;', :as => :string %>

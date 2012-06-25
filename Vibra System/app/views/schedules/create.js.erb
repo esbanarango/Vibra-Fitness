@@ -1,0 +1,24 @@
+<% if @save %> 
+<% numberStart = @schedule.start_time.to_s.gsub!(/:/,"") %>
+	var len = $("#schedule_table_hours tr").length;
+	$("#schedule_table_hours tr").each(function(index, element){
+		if(parseInt($(this).data("ordertime")) > parseInt(<%= numberStart %>) ){
+			$(element).before("<tr id='new_row_schedule'  data-ordertime='<%= numberStart %>'>"+
+											"<td class='boxCertify'><%=@schedule.start_time%></td>"+
+											"<td class='boxCertify'><%=@schedule.end_time%></td>"+
+											"<td class='boxCertify'><a href='/seats/<%= @schedule.seat_id %>/schedules/<%= @schedule.id %>' class='btn btn-mini btn-danger deleteSchedule'>Eliminar</a></td>"+
+										"</tr>");
+			return false
+		//Check if it's the last item
+		}else if(index == len - 1){
+			$(element).after("<tr id='new_row_schedule' data-ordertime='<%= numberStart %>'>"+
+											"<td class='boxCertify'><%=@schedule.start_time%></td>"+
+											"<td class='boxCertify'><%=@schedule.end_time%></td>"+
+											"<td class='boxCertify'><a href='/seats/<%= @schedule.seat_id %>/schedules/<%= @schedule.id %>' class='btn btn-mini btn-danger deleteSchedule'>Eliminar</a></td>"+
+										"</tr>");
+		}
+	});
+	$("#new_schedule").reset();
+<% else %> 
+	alert("Este turno se cruza con uno ya existente.")
+<% end %> 

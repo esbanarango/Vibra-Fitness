@@ -60,3 +60,130 @@
   font-size: 11px;
   text-align: center;
 }
+
+
+
+@-moz-keyframes resizeCertify {
+    0% {
+}
+25% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.1)
+}
+50% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.2);    
+}
+75% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.4);
+}
+100% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.6);
+}
+}
+@-webkit-keyframes resizeCertify {
+    0% {
+}
+25% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.1)
+}
+50% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.2);    
+}
+75% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.4);
+}
+100% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.6);
+}
+}
+@-o-keyframes resizeCertify {
+    0% {
+}
+25% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.1)
+}
+50% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.2);    
+}
+75% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.4);
+}
+100% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.6);
+}
+}
+@keyframes resizeCertify {
+    0% {
+}
+25% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.1)
+}
+50% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.2);    
+}
+75% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.4);
+}
+100% {
+    color: #666666;
+    border-radius: 2px;
+    background-color:rgba(12, 176, 34, 0.6);
+}
+}
+
+.boxCertify {
+  
+
+    -moz-animation-name: resizeCertify;
+    -moz-animation-duration: 1.2s;
+    -moz-animation-iteration-count: 2;
+    -moz-animation-direction: alternate;
+    -moz-animation-timing-function: ease-in-out;
+
+    -webkit-animation-name: resizeCertify;
+    -webkit-animation-duration: 1.2s; 
+    -webkit-animation-iteration-count: 2;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in-out;
+
+    -o-animation-name: resizeCertify;
+    -o-animation-duration: 1.2s;
+    -o-animation-iteration-count: 2;
+    -o-animation-direction: alternate;
+    -o-animation-timing-function: ease-in-out;
+
+    animation-name: resizeCertify;
+    animation-duration: 1.2s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+} 

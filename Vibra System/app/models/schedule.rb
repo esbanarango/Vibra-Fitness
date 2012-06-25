@@ -14,6 +14,9 @@
 #
 
 class Schedule < ActiveRecord::Base
+
+	default_scope :order => 'start_time'
+
   attr_accessible :date, :end_time, :machine_num, :start_time, :seat_id
 
   validates :start_time, presence: true
@@ -24,5 +27,12 @@ class Schedule < ActiveRecord::Base
   
   belongs_to :client
   belongs_to :seat
+
+  def same_hours?
+  	seat = Seat.find(self.seat_id)
+		sameHour = seat.schedules.where("date = ? and ((start_time < ? and ? < end_time) or (start_time < ? and ? < end_time) or (start_time >= ? and ? >= end_time) or start_time = ? or ? = end_time )",self.date, self.end_time.to_s ,self.end_time.to_s, self.start_time.to_s, self.start_time.to_s, self.start_time.to_s ,self.end_time.to_s, self.start_time.to_s , self.end_time.to_s  ).count
+		sameHour > 0		
+  end
+
 
 end

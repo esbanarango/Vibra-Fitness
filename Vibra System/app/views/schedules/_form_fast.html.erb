@@ -12,8 +12,8 @@
     <span class="add-on"><i class="icon-time"></i></span><%= f.input_field :end_time, style: 'max-width: 185px; cursor:pointer;', :as => :string %>
   <% end %>
 
-  <%= f.input :duration, label: "Duración session", :placeholder => 'Minutos...' %>
-  <%= f.input :break_duration, label: "Duración descanso", :placeholder => 'Minutos...' %>
+  <%= f.input :duration, label: "Duración session", :placeholder => 'Minutos...', :as => :numeric %>
+  <%= f.input :break_duration, label: "Duración descanso", :placeholder => 'Minutos...', :as => :numeric %>
   
   <div class="form-actions">
 	  <%= f.button :submit, :class => 'btn-primary', :value => 'Generar' %>

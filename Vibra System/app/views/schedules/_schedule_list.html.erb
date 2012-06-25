@@ -1,4 +1,4 @@
-<table class="table table-striped table-condensed table-bordered">
+<table class="table table-striped table-condensed table-bordered" id="schedule_table_hours">
   <thead>
     <tr>
       <th>Empieza</th>
@@ -8,7 +8,7 @@
   </thead>
   <tbody>
     <% @schedules.each do |schedule| %>
-      <tr>
+      <tr data-ordertime="<%= schedule.start_time.to_s.gsub!(/:/,"")%>">
         <td><%= schedule.start_time %></td>
         <td><%= schedule.end_time %></td>
         <td>

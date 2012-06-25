@@ -42,17 +42,12 @@ class SchedulesController < ApplicationController
   # POST /schedules
   # POST /schedules.json
   def create
+    @save = false
     @schedule = Schedule.new(params[:schedule])
-
-    respond_to do |format|
-      if @schedule.save
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully created.' }
-        format.json { render json: @schedule, status: :created, location: @schedule }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @schedule.errors, status: :unprocessable_entity }
-      end
-    end
+    # First check if there is a schedule that intersects
+    if !@schedule.same_hours? and @schedule.save
+      @save = true
+    end 
   end
 
   # POST /schedules_fast

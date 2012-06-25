@@ -1,5 +1,11 @@
 <% provide(:settings, 'active') %>
 <% provide(:conf_agenda, 'active') %>
+<ul class="breadcrumb">
+  <li>
+    <a href="/settings/seats_agenda">Agendas</a> <span class="divider">/</span>
+  </li>
+  <li class="active"><%= @seat.name%></li>
+</ul>
 <legend>Agenda - <%= @seat.name%></legend>
 <div id="calendar">
   <h2 id="month">

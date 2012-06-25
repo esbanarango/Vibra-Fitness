@@ -1,12 +1,21 @@
 <% provide(:settings, 'active') %>
 <% provide(:conf_agenda, 'active') %>
 <%- model_class = @schedule.class -%>
+<ul class="breadcrumb">
+  <li>
+    <a href="/settings/seats_agenda">Agendas</a> <span class="divider">/</span>
+  </li>
+  <li>
+    <a href="/seats/<%= @seat.id%>/schedules"><%= @seat.name%></a> <span class="divider">/</span>
+  </li>
+  <li class="active">Configuración</li>
+</ul>
 <h2>Configuración  Agenda - <em><%=@dateSchedule%></em> </h2>
 
 <div class="tabbable tabs-below" style="margin-top:5px"> <!-- Only required for left/right tabs -->
   <ul class="nav nav-tabs">
-    <li class="<%= "active" if @schedules.count == 0 %>" ><a href="#tab1" data-toggle="tab">Configuración rápida</a></li>
-    <li><a href="#tab2" data-toggle="tab">Configuración detallada</a></li>
+    <li id="tab1link" class="<%= "active" if @schedules.count == 0 %>" ><a href="#tab1" data-toggle="tab">Configuración rápida</a></li>
+    <li id="tab2link"><a href="#tab2" data-toggle="tab">Configuración detallada</a></li>
   </ul>
   <div class="tab-content">
     <div class="tab-pane <%= "active" if @schedules.count == 0 %>" id="tab1">
