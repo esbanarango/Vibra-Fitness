@@ -5,11 +5,11 @@
 
 <div class="tabbable tabs-below" style="margin-top:5px"> <!-- Only required for left/right tabs -->
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#tab1" data-toggle="tab">Configuración rápida</a></li>
+    <li class="<%= "active" if @schedules.count == 0 %>" ><a href="#tab1" data-toggle="tab">Configuración rápida</a></li>
     <li><a href="#tab2" data-toggle="tab">Configuración detallada</a></li>
   </ul>
   <div class="tab-content">
-    <div class="tab-pane active" id="tab1">
+    <div class="tab-pane <%= "active" if @schedules.count == 0 %>" id="tab1">
     	<div class="formExplenations">
     		<h6>Configuración rápida</h6>
     		<p>Esta configuración le permite generar todos los turnos simplemente ingresando <em>Hora de Inicio</em>, <em>Hora de Finalización</em>, <em>Duración de las sesiones</em> y <em>Descanso entre sesiones</em></p>
