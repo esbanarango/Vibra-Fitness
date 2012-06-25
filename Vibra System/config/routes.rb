@@ -11,17 +11,18 @@ VibraSystem::Application.routes.draw do
 
   resources :employees
   resources :seats do
-    resources :schedules, except: [:new]
+    resources :schedules, except: [:new, :index]
   end
-  match '/seats/:seat_id/schedules/:date/new(.:format)',  to: 'schedules#new', via: 'GET', :as => "new_seat_schedule"
-  
+  match '/settings/seats/:seat_id/schedules/:date/new(.:format)',  to: 'schedules#new', via: 'GET', :as => "new_seat_schedule"
+  match '/settings/seats/:seat_id/schedules(.:format)',  to: 'schedules#index', via: 'GET', :as => "seat_schedules"
+
   match '/schedules_fast(.:format)',  to: 'schedules#create_fast', via: 'POST', :as => "create_fast"
 
 
 
   #Settings
   match '/settings(.:format)',  to: 'settings#index', via: 'GET', :as => "settings"
-  match '/settings/seats_agenda',  to: 'settings#seats', via: 'GET', :as => "seats_agenda"
+  match '/settings/seats',  to: 'settings#seats', via: 'GET', :as => "seats_agenda"
 
 
 

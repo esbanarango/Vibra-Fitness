@@ -31,13 +31,6 @@
             <ul class="dropdown-menu">
               <li><%= link_to "Nuevo Cliente", new_client_path %></li>
               <li><%= link_to "Lista Clientes", clients_path %></li>
-              <li style="text-decoration: line-through;"><a href="#">Reservas</a></li>
-              <!--
-              <li class="divider"></li>
-              <li class="nav-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li>
-              -->
             </ul>
           </li>
           <li class="dropdown <%=(yield(:employee))%>">
@@ -51,6 +44,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sedes <b class="caret"></b></a>
             <ul class="dropdown-menu">
               <li><%= link_to "Lista Sedes", seats_path %></li>
+              <li><a href="#">Reservas</a></li>
             </ul>
           </li>
           <li class="<%=(yield(:about))%>"><%= link_to "About", about_path %></li>
