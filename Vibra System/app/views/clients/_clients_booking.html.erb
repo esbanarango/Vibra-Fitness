@@ -1,18 +1,24 @@
 <table id="table_clients" class="table table-condensed table-striped ">
   <thead>
     <tr>
-      <th>Plan</th>
-      <th>Estado</th>
+      <th></th>
       <th>Nombre</th>
       <th>Apellido</th>
       <th>Documento</th>
       <th>Email</th>
+      <th>Plan</th>
+      <th>Estado</th>
     </tr>
   </thead>
   <tbody>
     <% @clients.each do |client| %>
-      <tr class="client_drag">
-        <td><%= client.plan_name %></td>
+      <tr class="client_drag" data-horary="<%=client.plan_horary%>" data-status="<%=client.anyPlanActive?%>">
+        <td class="client_drag_handle"><i class="icon-move"></i></td>
+        <td class="client_drag_name"><%= client.first_name %></td>
+        <td class="client_drag_last_name"><%= client.last_name %></td>
+        <td><%= client.document %></td>                
+        <td><%= client.email %></td>
+        <td class="client_drag_plan"><%= client.plan_name %></td>
         <td>
           <% if client.anyPlanActive? %>
             <span class="label label-success">Activo</span>
@@ -20,10 +26,6 @@
             <span class="label label-important">Vencido</span>
           <%end%>
         </td>
-        <td><%= client.first_name %></td>
-        <td><%= client.last_name %></td>
-        <td><%= client.document %></td>                
-        <td><%= client.email %></td>
       </tr>
     <% end %>
   </tbody>

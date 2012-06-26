@@ -58,6 +58,14 @@ class Client < Profile
 		end
 	end
 
+	def plan_horary
+		actualPlan = self.historyPlans.where('state = \'Activo\'').limit(1)
+		if actualPlan.size > 0
+			actualPlan[0].product.plan.start_time.to_s+" "+actualPlan[0].product.plan.end_time.to_s
+		else
+			"-"
+		end
+	end
 
 	def generate_password
 	    password = random_password

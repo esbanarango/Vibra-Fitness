@@ -2,5 +2,15 @@ $('#clients_schedule .content').html("<%= escape_javascript(render('clients_book
 $('.pagination').html('<%= escape_javascript(paginate(@clients, :window => 2, :remote => true).to_s) %>');
 $("#clients_schedule.nano").nanoScroller();
 $(".client_drag").draggable({
-  helper: "clone"
+  opacity: 0.6,
+  cursorAt: {
+    top: 30,
+    left: 80
+  },
+  cursor: "move",
+  handle: ".client_drag_handle",
+  helper: function(event) {
+    return $("<div class='alert alert-block'></div>").html("<h4 class='alert-heading'>" + $(this).find(".client_drag_name").text() + " " + $(this).find(".client_drag_last_name").text() + "</h4>");
+  },
+  appendTo: 'body'
 });

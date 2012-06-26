@@ -34,7 +34,7 @@
           <tr>
             <th>Empieza</th>
             <th>Termina</th>
-            <% for i in 1..(@seat.num_machines+1) %>
+            <% for i in 1..(@seat.num_machines) %>
               <th>Máquina <%=i%></th>
             <%end%>
           </tr>
@@ -44,7 +44,7 @@
             <tr data-ordertime="<%= schedule.start_time.to_s.gsub!(/:/,"")%>">
               <td><%= schedule.start_time %></td>
               <td><%= schedule.end_time %></td>
-              <% for i in 1..(@seat.num_machines+1) %>
+              <% for i in 1..(@seat.num_machines) %>
                 <td class="client_drop"></td>
               <%end%>
             </tr>

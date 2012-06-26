@@ -153,12 +153,20 @@ jQuery ->
 	  hoverClass: "ui-state-active"
 	  accept: ".client_drag"
 	  drop: (event, ui) ->
-	    fullName = $(ui.draggable).find("td:first").text()+" "+$(ui.draggable).find("td:eq(1)").text()
-	    $(this).append ("<div>"+fullName+"</div>")
+	    status = $(ui.draggable).data("status");
+	    textShow = $(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+" - "+$(ui.draggable).find(".client_drag_plan").text()
+	    $(this).append ("<div class='inside_turn'>"+textShow+"</div>")
 
 
 	$(".client_drag").draggable 
-	  helper: "clone"	  
+	  opacity: 0.6
+	  cursorAt: 
+	    top: 30
+	    left: 80
+	  cursor: "move"
+	  handle: ".client_drag_handle"
+	  helper: (event) ->  
+	    $( "<div class='alert alert-block'></div>" ).html("<h4 class='alert-heading'>"+$(this).find(".client_drag_name").text()+" "+$(this).find(".client_drag_last_name").text()+"</h4>")
 	  appendTo: 'body'
 
 

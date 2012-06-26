@@ -19,7 +19,7 @@
   margin-top: 30px;
 }
 
-#clients_schedule table tr{
+#clients_schedule td.client_drag_handle{
   cursor: pointer !important;
 }
 
@@ -88,6 +88,19 @@
   text-align: center;
 }
 
+/*BOOKING STATUS*/
+
+.inside_turn{
+
+}
+
+.expired{
+
+}
+
+.different-time{
+
+}
 
 
 @-moz-keyframes resizeCertify {
