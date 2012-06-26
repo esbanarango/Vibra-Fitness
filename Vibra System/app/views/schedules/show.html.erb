@@ -1,29 +1,61 @@
-<%- model_class = @schedule.class -%>
-<h1><%=t '.title', :default => model_class.model_name.human %></h1>
-
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:start_time) %>:</strong></dt>
-  <dd><%= @schedule.start_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:end_time) %>:</strong></dt>
-  <dd><%= @schedule.end_time %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
-  <dd><%= @schedule.date %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:machine_num) %>:</strong></dt>
-  <dd><%= @schedule.machine_num %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:seat_id) %>:</strong></dt>
-  <dd><%= @schedule.seat_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:client_id) %>:</strong></dt>
-  <dd><%= @schedule.client_id %></dd>
-</dl>
-
-<div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              schedules_path, :class => 'btn'  %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_schedule_path(@schedule), :class => 'btn' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              schedule_path(@schedule),
-              :method => 'delete',
-              :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')),
-              :class => 'btn btn-danger' %>
-</div>
+<% provide(:book, 'active') %>
+<ul class="breadcrumb">
+  <li>
+    <a href="/seats">Sedes Agendas</a> <span class="divider">/</span>
+  </li>
+  <li>
+    <a href="/seats/<%= @seat.id%>/schedules"><%= @seat.name%></a> <span class="divider">/</span>
+  </li>
+  <li class="active"><%= @date %></li>
+</ul>
+<legend>Reservas</legend>
+<section class="span12">
+  <% if @schedules.count > 0 %>
+    <div class="search_clients_schedule">
+      <%= form_tag clients_booking_path, :method => 'get', :id => "clients_search" do %>
+        <!-- PAGINATION -->
+        <%= paginate @clients, :window => 2, :remote => true, :params => {:controller => 'clients', :action => 'index_booking'}%>
+        <div style="margin-left:2px; margin-bottom:-5px;">
+            <div class="input-prepend">
+              <span class="add-on" style="margin-right: -5px;"><i class="icon-search"></i></span>
+              <%= text_field_tag :search, params[:search], :class => 'searchInput', :placeholder => 'Buscar...' %>
+            </div>
+        </div>
+      <% end %> 
+      <div id="clients_schedule" class="nano well">
+        <div class="content">
+          <%= render :partial => '/clients/clients_booking' %>
+        </div>
+      </div>
+    </div>
+    <div id="seat_schedule">
+      <table class="table table-striped table-condensed table-bordered" id="schedule_table_hours">
+        <thead>
+          <tr>
+            <th>Empieza</th>
+            <th>Termina</th>
+            <% for i in 1..(@seat.num_machines+1) %>
+              <th>Máquina <%=i%></th>
+            <%end%>
+          </tr>
+        </thead>
+        <tbody>
+          <% @schedules.each do |schedule| %>
+            <tr data-ordertime="<%= schedule.start_time.to_s.gsub!(/:/,"")%>">
+              <td><%= schedule.start_time %></td>
+              <td><%= schedule.end_time %></td>
+              <% for i in 1..(@seat.num_machines+1) %>
+                <td class="client_drop"></td>
+              <%end%>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <%else%>
+  <div class="alert alert-error">
+    <h4 class="alert-heading">¡Atención!</h4>
+    No se ha configurado ningun turno para esta fecha.
+  </div>
+  <%end%>
+</section>

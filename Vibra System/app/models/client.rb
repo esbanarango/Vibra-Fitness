@@ -33,6 +33,32 @@ class Client < Profile
 	has_many :historyPlans
 	has_many :invoices
 
+
+	acts_as_api
+
+  	# Template for basic client info
+  	api_accessible :booking_clients do |template|
+  		template.add :id
+  		template.add :first_name
+	    template.add :last_name
+	    template.add :document
+	    template.add :email
+	    template.add :anyPlanActive?, :as => :active
+	    template.add :plan_name
+	end
+
+
+	# Public methods for ac_as_api
+	def plan_name
+		actualPlan = self.historyPlans.where('state = \'Activo\'').limit(1)
+		if actualPlan.size > 0
+			actualPlan[0].product.plan.name
+		else
+			"Ninguno"
+		end
+	end
+
+
 	def generate_password
 	    password = random_password
 		self.password = password

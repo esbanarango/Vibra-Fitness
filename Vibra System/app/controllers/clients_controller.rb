@@ -6,9 +6,17 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(10)
-    respond_with(@clients)
+      @clients = Client.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(10)
+      respond_with(@clients)
   end
+
+  # GET /clients
+  # GET /clients.json
+  def index_booking
+      @clients = Client.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(10)
+      respond_with(@clients)
+  end
+
 
   # GET /clients/1
   # GET /clients/1.json

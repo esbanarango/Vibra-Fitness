@@ -137,6 +137,36 @@ jQuery ->
 	  else
 		  false	    
 
+  #Booking funcions
+	  # Search form.
+	 $('#clients_search input').keyup (e) ->
+    e.preventDefault()
+    $(@).addClass "loadingInput"
+    $.get($('#clients_search').attr('action'), $('#clients_search').serialize(), null, 'script')
+    .complete(=> $(@).removeClass "loadingInput")
+
+  $("#clients_schedule.nano").nanoScroller()
+
+  #Drag adn drop funcionality
+	$(".client_drop").droppable
+	  activeClass: "ui-state-hover"
+	  hoverClass: "ui-state-active"
+	  accept: ".client_drag"
+	  drop: (event, ui) ->
+	    fullName = $(ui.draggable).find("td:first").text()+" "+$(ui.draggable).find("td:eq(1)").text()
+	    $(this).append ("<div>"+fullName+"</div>")
+
+
+	$(".client_drag").draggable 
+	  helper: "clone"	  
+	  appendTo: 'body'
+
+
+
+
+
+
+
 
 
 

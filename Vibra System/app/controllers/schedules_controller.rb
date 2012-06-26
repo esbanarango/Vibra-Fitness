@@ -4,23 +4,31 @@ class SchedulesController < ApplicationController
 
   # GET /schedules
   # GET /schedules.json
-  def index
+  # /settings/seats/:seat_id/schedules(.:format) 
+  def settings_index
     @seat = Seat.find(params[:seat_id])
     @schedules = @seat.schedules
     @date = params[:month] ? Date.parse(params[:month]) : Date.today
     render :layout => "settings_layout"
-
   end
+
+  # GET /schedules
+  # GET /schedules.json
+  def index
+    @seat = Seat.find(params[:seat_id])
+    @schedules = @seat.schedules
+    @date = params[:month] ? Date.parse(params[:month]) : Date.today
+  end
+
 
   # GET /schedules/1
   # GET /schedules/1.json
+  # BOOKING
   def show
-    @schedule = Schedule.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @schedule }
-    end
+    @date = params[:id]
+    @seat = Seat.find(params[:seat_id])
+    @schedules = @seat.schedules.where("date = ?",@date )
+    @clients = Client.search(params[:search]).page(params[:page]).per(10)
   end
 
   # GET /schedules/new

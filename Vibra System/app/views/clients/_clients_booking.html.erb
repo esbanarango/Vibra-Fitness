@@ -1,0 +1,30 @@
+<table id="table_clients" class="table table-condensed table-striped ">
+  <thead>
+    <tr>
+      <th>Plan</th>
+      <th>Estado</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Documento</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @clients.each do |client| %>
+      <tr class="client_drag">
+        <td><%= client.plan_name %></td>
+        <td>
+          <% if client.anyPlanActive? %>
+            <span class="label label-success">Activo</span>
+          <% else %>
+            <span class="label label-important">Vencido</span>
+          <%end%>
+        </td>
+        <td><%= client.first_name %></td>
+        <td><%= client.last_name %></td>
+        <td><%= client.document %></td>                
+        <td><%= client.email %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

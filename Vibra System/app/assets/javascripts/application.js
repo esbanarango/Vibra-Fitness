@@ -15,8 +15,10 @@
 //= require jquery.ui.all
 //= require twitter/bootstrap
 //= require spin.min.js
+//= require jquery.tmpl.min.js
 //= require jquery-ui-timepicker.js
 //= require chosen.jquery.min.js
+//= require jquery.nanoscroller.min.js
 //= require jquery.validate.js
 
 

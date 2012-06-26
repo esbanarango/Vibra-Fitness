@@ -71,6 +71,9 @@ gem "bcrypt-ruby", "~> 3.0.1"
 #Kaminari is a Scope & Engine based, clean, powerful, agnostic, customizable and sophisticated paginator for Rails 3
 gem "kaminari"
 
+# acts_as_api enriches the models and controllers of your app in a rails-like way so you can easily determine how your XML/JSON API responses should look like.
+gem "acts_as_api", "~> 0.4"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

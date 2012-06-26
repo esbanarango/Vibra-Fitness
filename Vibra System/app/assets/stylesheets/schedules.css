@@ -1,3 +1,30 @@
+
+.search_clients_schedule{
+
+  padding-left: 20px;
+  height:150px;
+  margin-bottom: 80px;
+
+}
+
+.search_clients_schedule .pagination{
+
+  float:right;
+  margin: 0;
+
+}
+#clients_schedule{
+  border-radius:4px;
+  padding:  0px !important;
+  margin-top: 30px;
+}
+
+#clients_schedule table tr{
+  cursor: pointer !important;
+}
+
+
+
 #calendar table {
   border-collapse: collapse;
   width: 100%;

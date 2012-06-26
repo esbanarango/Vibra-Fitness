@@ -9,12 +9,14 @@ VibraSystem::Application.routes.draw do
     resources :invoices
   end
 
+  match '/clients_booking(.:format)',  to: 'clients#index_booking', via: 'GET', :as => "clients_booking"
+
   resources :employees
   resources :seats do
-    resources :schedules, except: [:new, :index]
+    resources :schedules, except: [:new]
   end
   match '/settings/seats/:seat_id/schedules/:date/new(.:format)',  to: 'schedules#new', via: 'GET', :as => "new_seat_schedule"
-  match '/settings/seats/:seat_id/schedules(.:format)',  to: 'schedules#index', via: 'GET', :as => "seat_schedules"
+  match '/settings/seats/:seat_id/schedules(.:format)',  to: 'schedules#settings_index', via: 'GET', :as => "settings_seat_schedules"
 
   match '/schedules_fast(.:format)',  to: 'schedules#create_fast', via: 'POST', :as => "create_fast"
 

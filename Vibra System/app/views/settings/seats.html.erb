@@ -2,7 +2,7 @@
 <% provide(:conf_agenda, 'active') %>
 <%- model_class = Seat.new.class -%>
 <ul class="breadcrumb">
-  <li class="active">Agendas</li>
+  <li class="active">Configuración Agendas</li>
 </ul>
 <legend>Configuración de agendas</legend>
 <table class="table table-striped table-condensed">
@@ -16,7 +16,7 @@
   <tbody>
     <% @seats.each do |seat| %>
       <tr>
-        <td><%= link_to "Agenda", seat_schedules_path(seat), :class => 'btn btn-mini btn-warning' %></td>
+        <td><%= link_to "Agendar", settings_seat_schedules_path(seat), :class => 'btn btn-mini btn-warning' %></td>
         <td><%= seat.name %></td>
         <td><%= seat.num_machines %></td>
       </tr>
