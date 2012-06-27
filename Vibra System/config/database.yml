@@ -15,7 +15,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: Vibra_System_development
+  database: VibraSystemdevelopment
   pool: 5
   username: postgres
   password: admin

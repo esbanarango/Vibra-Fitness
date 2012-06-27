@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120619220106) do
+ActiveRecord::Schema.define(:version => 20120620220106) do
 
   create_table "discounts", :force => true do |t|
     t.string   "name",        :null => false
@@ -49,6 +49,12 @@ ActiveRecord::Schema.define(:version => 20120619220106) do
     t.integer  "product_id"
     t.datetime "created_at",                                     :null => false
     t.datetime "updated_at",                                     :null => false
+  end
+
+  create_table "machines", :id => false, :force => true do |t|
+    t.integer "client_id"
+    t.integer "schedule_id"
+    t.integer "machine_num"
   end
 
   create_table "plans", :force => true do |t|
@@ -99,17 +105,15 @@ ActiveRecord::Schema.define(:version => 20120619220106) do
   end
 
   create_table "schedules", :force => true do |t|
-    t.time     "start_time",  :null => false
-    t.time     "end_time",    :null => false
-    t.date     "date",        :null => false
-    t.integer  "machine_num", :null => false
-    t.integer  "seat_id",     :null => false
-    t.integer  "client_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.time     "start_time", :null => false
+    t.time     "end_time",   :null => false
+    t.date     "date",       :null => false
+    t.integer  "seat_id",    :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "schedules", ["seat_id", "start_time", "date", "machine_num"], :name => "schedule_unique", :unique => true
+  add_index "schedules", ["seat_id", "start_time", "date"], :name => "schedule_unique", :unique => true
 
   create_table "seats", :force => true do |t|
     t.string   "name",                      :null => false

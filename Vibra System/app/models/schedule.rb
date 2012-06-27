@@ -5,10 +5,8 @@
 #  id          :integer(4)      not null, primary key
 #  start_time  :time            not null
 #  end_time    :time            not null
-#  date        :date            not null
-#  machine_num :integer(4)      
+#  date        :date            not null      
 #  seat_id     :integer(4)      not null
-#  client_id   :integer(4)
 #  created_at  :datetime        not null
 #  updated_at  :datetime        not null
 #
@@ -18,14 +16,13 @@ class Schedule < ActiveRecord::Base
 	default_scope :order => 'start_time'
 
   attr_accessible :date, :end_time, :machine_num, :start_time, :seat_id
-
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :date, presence: true
   validates :seat_id, presence: true
-
   
-  belongs_to :client
+  has_many :machines
+  has_many :clients, :through => :machines
   belongs_to :seat
 
   def same_hours?

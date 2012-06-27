@@ -41,11 +41,27 @@
         </thead>
         <tbody>
           <% @schedules.each do |schedule| %>
-            <tr data-ordertime="<%= schedule.start_time.to_s.gsub!(/:/,"")%>">
+            <% hStart = schedule.start_time.to_s.gsub!(/:/,"").to_i %>
+            <% hEnd = schedule.end_time.to_s.gsub!(/:/,"").to_i %>
+            <tr data-idseat="<%=@seat.id%>" data-idturn="<%=schedule.id%>" data-horarystart="<%=hStart%>" data-horaryend="<%=hEnd%>">
               <td><%= schedule.start_time %></td>
               <td><%= schedule.end_time %></td>
               <% for i in 1..(@seat.num_machines) %>
-                <td class="client_drop"></td>
+                <td class="client_drop" data-nummachine="<%=i%>">
+                  <% schedule.machines.each do |machine|%>
+                    <% if machine.machine_num == i and machine.client %>
+                      <!-- Check the classColar that has to be used-->
+                      <% if !machine.client.anyPlanActive? %>
+                        <% classColor = "expired" %>
+                      <%else%>
+                        <% hStartPlan = machine.client.plan_horary_start %>
+                        <% hEndPlan = machine.client.plan_horary_end %>
+                        <% classColor = ((hStart < hStartPlan) or (hEnd > hEndPlan))? "different-time":"" %>
+                      <%end%>
+                      <div class="<%=classColor%> inside_turn"> <a class='close' href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5> / <em>#{machine.client.plan_name}</em>".html_safe%></div>
+                    <%end%>
+                  <%end%>
+                </td>
               <%end%>
             </tr>
           <% end %>

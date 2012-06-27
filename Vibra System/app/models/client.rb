@@ -29,7 +29,8 @@ class Client < Profile
 
 	after_create :confirmation_and_welcome_notification
 
-	has_many :schedules
+	has_many :machines
+	has_many :schedules, :through => :machines
 	has_many :historyPlans
 	has_many :invoices
 
@@ -54,16 +55,25 @@ class Client < Profile
 		if actualPlan.size > 0
 			actualPlan[0].product.plan.name
 		else
-			"Ninguno"
+			"-"
 		end
 	end
 
-	def plan_horary
+	def plan_horary_start
 		actualPlan = self.historyPlans.where('state = \'Activo\'').limit(1)
 		if actualPlan.size > 0
-			actualPlan[0].product.plan.start_time.to_s+" "+actualPlan[0].product.plan.end_time.to_s
+			actualPlan[0].product.plan.start_time.to_s.gsub!(/:/,"").to_i
 		else
-			"-"
+			0
+		end
+	end
+
+	def plan_horary_end
+		actualPlan = self.historyPlans.where('state = \'Activo\'').limit(1)
+		if actualPlan.size > 0 
+			actualPlan[0].product.plan.end_time.to_s.gsub!(/:/,"").to_i
+		else
+			0
 		end
 	end
 
@@ -76,6 +86,10 @@ class Client < Profile
 	def anyPlanActive?
 		return true if self.historyPlans.where('state = \'Activo\'').count > 0
 		return false		
+	end
+
+	def fullName
+		self.first_name+" "+self.last_name
 	end
 
 	private

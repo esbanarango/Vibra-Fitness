@@ -152,10 +152,20 @@ jQuery ->
 	  activeClass: "ui-state-hover"
 	  hoverClass: "ui-state-active"
 	  accept: ".client_drag"
-	  drop: (event, ui) ->
-	    status = $(ui.draggable).data("status");
-	    textShow = $(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+" - "+$(ui.draggable).find(".client_drag_plan").text()
-	    $(this).append ("<div class='inside_turn'>"+textShow+"</div>")
+	  drop: (event, ui) ->  
+		  closeTag = "<a class='close' href='#'>×</a>"
+		  if !$(ui.draggable).data("status") 
+			  classColor = "expired"
+		  else
+		    #Check if client is out of the horary plan
+			  hStart = parseInt($(this).parent().data("horarystart"))
+			  hEnd = parseInt($(this).parent().data("horaryend"))
+			  hStartPlan =parseInt($(ui.draggable).data("horarystart") )
+			  hEndPlan	=parseInt($(ui.draggable).data("horaryend"))
+			  classColor = (if (hStart < hStartPlan) or (hEnd > hEndPlan) then "different-time" else "")
+		  textShow = "<h5>"+$(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+"</h5> / <em>"+$(ui.draggable).find(".client_drag_plan").text()+"</em>"
+		  $(this).append ("<div class=' #{classColor} inside_turn'> #{closeTag} #{textShow}</div>")
+		  reserveTurn($(this).parent().data("idturn"),$(ui.draggable).data("idclient"),$(this).data("nummachine"),$(this).parent().data("idseat"))
 
 
 	$(".client_drag").draggable 
@@ -168,7 +178,20 @@ jQuery ->
 	  helper: (event) ->  
 	    $( "<div class='alert alert-block'></div>" ).html("<h4 class='alert-heading'>"+$(this).find(".client_drag_name").text()+" "+$(this).find(".client_drag_last_name").text()+"</h4>")
 	  appendTo: 'body'
-
+  
+  reserveTurn = (scheduleId,clientId,numMachine,seatId) ->
+    console.log(scheduleId,clientId,numMachine,seatId)
+    $.ajax
+      type: "POST"
+      url: "/seats/#{seatId}/schedules/#{scheduleId}"
+      data:
+        _method: "put"
+        machine:
+          machine_num: numMachine
+          client_id: clientId
+      error: ->
+      success: ->
+      dataType: "script"
 
 
 

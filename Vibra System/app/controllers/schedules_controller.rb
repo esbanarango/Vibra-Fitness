@@ -28,7 +28,7 @@ class SchedulesController < ApplicationController
     @date = params[:id]
     @seat = Seat.find(params[:seat_id])
     @schedules = @seat.schedules.where("date = ?",@date )
-    @clients = Client.search(params[:search]).page(params[:page]).per(10)
+    @clients = Client.search(params[:search]).order(sort_column + " " + sort_direction).page(params[:page]).per(10)
   end
 
   # GET /schedules/new
@@ -40,11 +40,6 @@ class SchedulesController < ApplicationController
     @schedules = @seat.schedules.where("date = ?",params[:date])
     @dateSchedule = params[:date] # Necesary to initialize the times
     render :layout => "settings_layout"
-  end
-
-  # GET /schedules/1/edit
-  def edit
-    @schedule = Schedule.find(params[:id])
   end
 
   # POST /schedules
@@ -71,17 +66,7 @@ class SchedulesController < ApplicationController
   # PUT /schedules/1
   # PUT /schedules/1.json
   def update
-    @schedule = Schedule.find(params[:id])
-
-    respond_to do |format|
-      if @schedule.update_attributes(params[:schedule])
-        format.html { redirect_to @schedule, notice: 'Schedule was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @schedule.errors, status: :unprocessable_entity }
-      end
-    end
+    @machine = Machine.find_or_create_by_schedule_id_and_client_id_and_machine_num(:schedule_id => params[:id], :client_id => params[:machine][:client_id], :machine_num => params[:machine][:machine_num])
   end
 
   # DELETE /schedules/1
@@ -91,4 +76,17 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.find(params[:id])
     @schedule.destroy
   end
+
+  private
+  
+    def sort_column
+      Client.column_names.include?(params[:sort]) ? params[:sort] : "first_name"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+
+
+
 end

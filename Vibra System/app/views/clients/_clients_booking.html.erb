@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <% @clients.each do |client| %>
-      <tr class="client_drag" data-horary="<%=client.plan_horary%>" data-status="<%=client.anyPlanActive?%>">
+      <tr class="client_drag" data-idclient="<%=client.id%>" data-horarystart="<%=client.plan_horary_start%>" data-horaryend="<%=client.plan_horary_end%>" data-status="<%=client.anyPlanActive?%>">
         <td class="client_drag_handle"><i class="icon-move"></i></td>
         <td class="client_drag_name"><%= client.first_name %></td>
         <td class="client_drag_last_name"><%= client.last_name %></td>
