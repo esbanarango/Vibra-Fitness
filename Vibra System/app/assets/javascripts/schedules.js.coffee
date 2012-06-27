@@ -152,27 +152,29 @@ jQuery ->
 	  activeClass: "ui-state-hover"
 	  hoverClass: "ui-state-active"
 	  accept: ".client_drag"
-	  drop: (event, ui) ->  
-		  closeTag = "<a class='close' href='#'>×</a>"
-		  if !$(ui.draggable).data("status") 
-			  classColor = "expired"
-		  else
-		    #Check if client is out of the horary plan
-			  hStart = parseInt($(this).parent().data("horarystart"))
-			  hEnd = parseInt($(this).parent().data("horaryend"))
-			  hStartPlan =parseInt($(ui.draggable).data("horarystart") )
-			  hEndPlan	=parseInt($(ui.draggable).data("horaryend"))
-			  classColor = (if (hStart < hStartPlan) or (hEnd > hEndPlan) then "different-time" else "")
-		  textShow = "<h5>"+$(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+"</h5> / <em>"+$(ui.draggable).find(".client_drag_plan").text()+"</em>"
-		  $(this).append ("<div class=' #{classColor} inside_turn'> #{closeTag} #{textShow}</div>")
-		  reserveTurn($(this).parent().data("idturn"),$(ui.draggable).data("idclient"),$(this).data("nummachine"),$(this).parent().data("idseat"))
+	  drop: (event, ui) ->
+	    if $(this).find("div.inside_turn").size() is 0
+	      closeTag = "<a class='close deleteTurn' href='#'>×</a>"
+	      if !$(ui.draggable).data("status")
+	        classColor = "expired"
+	      else
+	        #Check if client is out of the horary plan
+	        hStart = parseInt($(this).parent().data("horarystart"))
+	        hEnd = parseInt($(this).parent().data("horaryend"))
+	        hStartPlan =parseInt($(ui.draggable).data("horarystart") )
+	        hEndPlan	=parseInt($(ui.draggable).data("horaryend"))
+	        classColor = (if (hStart < hStartPlan) or (hEnd > hEndPlan) then "different-time" else "")
+	      scheduleId = $(this).parent().data("idturn")
+	      clientId = $(ui.draggable).data("idclient")
+	      numMachine = $(this).data("nummachine")
+	      textShow = "<h5>"+$(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+"</h5> / <em>"+$(ui.draggable).find(".client_drag_plan").text()+"</em>"
+	      $(this).append ("<div class=' #{classColor} inside_turn' data-idturn='#{scheduleId}' data-idclient='#{clientId}' data-nummachine='#{numMachine}' > #{closeTag} #{textShow}</div>")
+	      reserveTurn(scheduleId,clientId,numMachine,$(this).parent().data("idseat"))
 
 
 	$(".client_drag").draggable 
+	  revert: true
 	  opacity: 0.6
-	  cursorAt: 
-	    top: 30
-	    left: 80
 	  cursor: "move"
 	  handle: ".client_drag_handle"
 	  helper: (event) ->  
@@ -180,7 +182,6 @@ jQuery ->
 	  appendTo: 'body'
   
   reserveTurn = (scheduleId,clientId,numMachine,seatId) ->
-    console.log(scheduleId,clientId,numMachine,seatId)
     $.ajax
       type: "POST"
       url: "/seats/#{seatId}/schedules/#{scheduleId}"
@@ -194,7 +195,28 @@ jQuery ->
       dataType: "script"
 
 
+  #Delete Action
+  $(document).on "click", ".inside_turn a.deleteTurn", (e) ->
+	  e.preventDefault
+	  if confirm("Está seguro que desea cancelar este turno?")
+		  turn = $(this).parent()
+		  $.ajax
+		    type: "DELETE"
+		    url: "/schedules/cancel_turn"
+		    data:
+		      _method: "delete"
+		      machine:
+		        client_id: turn.data("idclient")
+		        schedule_id: turn.data("idturn")
+		        machine_num: turn.data("nummachine")
 
+		    dataType: "script"
+		    success: ->
+		      turn.slideUp 400, ->
+		        $(@).remove()
+		  false
+	  else
+		  false
 
 
 

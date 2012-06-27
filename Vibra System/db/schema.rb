@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(:version => 20120620220106) do
     t.datetime "updated_at",                                     :null => false
   end
 
-  create_table "machines", :id => false, :force => true do |t|
+  create_table "machines", :force => true do |t|
     t.integer "client_id"
     t.integer "schedule_id"
     t.integer "machine_num"

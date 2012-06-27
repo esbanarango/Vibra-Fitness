@@ -12,7 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery.ui.all
+
+//= require jquery.ui.datepicker
+//= require jquery.ui.draggable
+//= require jquery.ui.droppable
+//= require jquery.ui.slider
+
 //= require twitter/bootstrap
 //= require spin.min.js
 //= require jquery.tmpl.min.js

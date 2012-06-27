@@ -1,10 +1,11 @@
 # == Schema Information
 #
-# Table name: machiness
-#   
+# Table name: machines
+#
+#  id          :integer(4)      not null, primary key
+#  client_id   :integer(4)
+#  schedule_id :integer(4)
 #  machine_num :integer(4)
-#  client_id     :integer(4)
-#  schedule_id   :integer(4)
 #
 
 class Machine < ActiveRecord::Base

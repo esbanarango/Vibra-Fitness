@@ -29,7 +29,7 @@ class Client < Profile
 
 	after_create :confirmation_and_welcome_notification
 
-	has_many :machines
+	has_many :machines, :dependent => :destroy
 	has_many :schedules, :through => :machines
 	has_many :historyPlans
 	has_many :invoices

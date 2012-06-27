@@ -22,7 +22,7 @@
             </div>
         </div>
       <% end %> 
-      <div id="clients_schedule" class="nano well">
+      <div id="clients_schedule" class="nano well" style="width: 98%;">
         <div class="content">
           <%= render :partial => '/clients/clients_booking' %>
         </div>
@@ -58,7 +58,7 @@
                         <% hEndPlan = machine.client.plan_horary_end %>
                         <% classColor = ((hStart < hStartPlan) or (hEnd > hEndPlan))? "different-time":"" %>
                       <%end%>
-                      <div class="<%=classColor%> inside_turn"> <a class='close' href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5> / <em>#{machine.client.plan_name}</em>".html_safe%></div>
+                      <div class="<%=classColor%> inside_turn" data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > <a class='close deleteTurn' href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5> / <em>#{machine.client.plan_name}</em>".html_safe%></div>
                     <%end%>
                   <%end%>
                 </td>

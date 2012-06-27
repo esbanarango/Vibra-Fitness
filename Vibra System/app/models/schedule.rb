@@ -2,13 +2,13 @@
 #
 # Table name: schedules
 #
-#  id          :integer(4)      not null, primary key
-#  start_time  :time            not null
-#  end_time    :time            not null
-#  date        :date            not null      
-#  seat_id     :integer(4)      not null
-#  created_at  :datetime        not null
-#  updated_at  :datetime        not null
+#  id         :integer(4)      not null, primary key
+#  start_time :time            not null
+#  end_time   :time            not null
+#  date       :date            not null
+#  seat_id    :integer(4)      not null
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
 #
 
 class Schedule < ActiveRecord::Base
@@ -21,7 +21,7 @@ class Schedule < ActiveRecord::Base
   validates :date, presence: true
   validates :seat_id, presence: true
   
-  has_many :machines
+  has_many :machines, :dependent => :destroy
   has_many :clients, :through => :machines
   belongs_to :seat
 

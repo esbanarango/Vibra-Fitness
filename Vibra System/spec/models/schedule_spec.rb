@@ -2,15 +2,13 @@
 #
 # Table name: schedules
 #
-#  id          :integer(4)      not null, primary key
-#  start_time  :time            not null
-#  end_time    :time            not null
-#  date        :date            not null
-#  machine_num :integer(4)      not null
-#  seat_id     :integer(4)      not null
-#  client_id   :integer(4)
-#  created_at  :datetime        not null
-#  updated_at  :datetime        not null
+#  id         :integer(4)      not null, primary key
+#  start_time :time            not null
+#  end_time   :time            not null
+#  date       :date            not null
+#  seat_id    :integer(4)      not null
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
 #
 
 require 'spec_helper'

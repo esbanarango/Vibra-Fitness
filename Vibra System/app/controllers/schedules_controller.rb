@@ -66,8 +66,22 @@ class SchedulesController < ApplicationController
   # PUT /schedules/1
   # PUT /schedules/1.json
   def update
+    @client = Client.find(params[:machine][:client_id])
+    @historyPlan = @client.historyPlans.where("state = \'Activo\'").limit(1)[0]
+    if @historyPlan
+      @historyPlan.num_sessions = @historyPlan.num_sessions - 1 
+      @historyPlan.save
+    end
     @machine = Machine.find_or_create_by_schedule_id_and_client_id_and_machine_num(:schedule_id => params[:id], :client_id => params[:machine][:client_id], :machine_num => params[:machine][:machine_num])
   end
+
+  # DELETE /schedules/1
+  # DELETE /schedules/1.json
+  def cancel_turn
+    @machine = Machine.where("schedule_id= ? and client_id = ? and machine_num = ?",params[:machine][:schedule_id],params[:machine][:client_id],params[:machine][:machine_num]).limit(1)[0]
+    @machine.destroy
+  end
+
 
   # DELETE /schedules/1
   # DELETE /schedules/1.json

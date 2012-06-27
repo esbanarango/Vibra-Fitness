@@ -3,7 +3,6 @@
 # Table name: invoices
 #
 #  id              :integer(4)      not null, primary key
-#  creation_date   :date
 #  expiration_date :date
 #  city            :string(255)
 #  subtotal        :decimal(12, 2)

@@ -106,6 +106,20 @@
   background-color: rgba(255, 255, 102, 0.6);
 }
 
+.ui-state-hover-schedule{
+  border: 1px solid #2C4359;
+  background: rgba(53, 65, 79, 0.2) url(../images/?new=35414f&w=2&h=2&f=png&q=100&fltr[]=over|textures/09_dots_small.png|0|0|35) 50% 50% repeat !important;
+  color: #E1E463;
+  font-weight: bold;
+}
+
+
+.ui-state-active-schedule{
+  border: 1px solid #2C4359;
+  background: rgba(108, 74, 79, 0.8)url(../images/?new=35414f&w=2&h=2&f=png&q=100&fltr[]=over|textures/09_dots_small.png|0|0|35) 50% 50% repeat !important;
+  color: #E1E463;
+  font-weight: bold;
+}
 
 @-moz-keyframes resizeCertify {
     0% {
