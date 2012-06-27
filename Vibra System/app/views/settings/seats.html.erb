@@ -16,7 +16,7 @@
   <tbody>
     <% @seats.each do |seat| %>
       <tr>
-        <td><%= link_to "Agendar", settings_seat_schedules_path(seat), :class => 'btn btn-mini btn-warning' %></td>
+        <td><%= link_to "Agenda", settings_seat_schedules_path(seat), :class => 'btn btn-mini btn-warning' %></td>
         <td><%= seat.name %></td>
         <td><%= seat.num_machines %></td>
       </tr>

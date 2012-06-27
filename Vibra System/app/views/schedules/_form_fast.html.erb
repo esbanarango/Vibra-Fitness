@@ -12,10 +12,11 @@
     <span class="add-on"><i class="icon-time"></i></span><%= f.input_field :end_time, style: 'max-width: 185px; cursor:pointer;', :as => :string %>
   <% end %>
 
-  <%= f.input :duration, label: "Duración session", :placeholder => 'Minutos...', :as => :numeric %>
-  <%= f.input :break_duration, label: "Duración descanso", :placeholder => 'Minutos...', :as => :numeric %>
+  <%= f.input :duration, label: "Duración session", :placeholder => 'Minutos...', :as => :numeric, :input_html => {:min=>"1"} %>
+  <%= f.input :break_duration, label: "Duración descanso", :placeholder => 'Minutos...', :as => :numeric, :input_html => {:min=>"0"} %>
   
   <div class="form-actions">
 	  <%= f.button :submit, :class => 'btn-primary', :value => 'Generar' %>
 	</div>
 <% end %>
+ 

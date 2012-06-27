@@ -29,9 +29,10 @@ class ConfSchedule
 		limit = Time.parse(self.date+" "+self.end_time)
 		actual = Time.parse(self.date+" "+self.start_time)
 
-		#Destroy all the actual turns
+		#Destroy all the actual turns and old ones
 		seat = Seat.find(self.seat_id)
 		seat.schedules.where("date = ?",self.date).delete_all
+		clean
 
 		#Generate all the turns
 		while(limit > actual) do 
@@ -40,6 +41,10 @@ class ConfSchedule
 			actual = actual + (self.duration+self.break_duration)*60
 		end
 		
+	end
+
+	def clean
+		Schedule.where("date < ?",Date.today).delete_all
 	end
 
 end

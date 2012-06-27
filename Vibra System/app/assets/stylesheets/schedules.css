@@ -121,6 +121,18 @@
   font-weight: bold;
 }
 
+.infoColors{
+  font-size: 11px;
+  width: auto;
+  padding: 3px;
+  float: left;
+  border-radius: 3px;
+}
+
+.infoColorsContainer{
+  margin-bottom: 40px;
+}
+
 @-moz-keyframes resizeCertify {
     0% {
 }
