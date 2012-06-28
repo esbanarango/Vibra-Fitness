@@ -37,8 +37,8 @@
       <table class="table table-striped table-condensed table-bordered" id="schedule_table_hours">
         <thead>
           <tr>
-            <th>Empieza</th>
-            <th>Termina</th>
+            <th style="width:2%;">Empieza</th>
+            <th style="width:2%;">Termina</th>
             <% for i in 1..(@seat.num_machines) %>
               <th>Máquina <%=i%></th>
             <%end%>
@@ -46,15 +46,18 @@
         </thead>
         <tbody>
           <% @schedules.each do |schedule| %>
-            <% hStart = schedule.start_time.to_s.gsub!(/:/,"").to_i %>
-            <% hEnd = schedule.end_time.to_s.gsub!(/:/,"").to_i %>
+            <% hStart = schedule.start_time.to_s.gsub!(/:/,"").to_i #Start hour in number %>
+            <% hEnd = schedule.end_time.to_s.gsub!(/:/,"").to_i     #End hour in number %>
             <tr data-idseat="<%=@seat.id%>" data-idturn="<%=schedule.id%>" data-horarystart="<%=hStart%>" data-horaryend="<%=hEnd%>">
               <td><%= schedule.start_time %></td>
               <td><%= schedule.end_time %></td>
               <% for i in 1..(@seat.num_machines) %>
                 <td class="client_drop" data-nummachine="<%=i%>">
+                  <% waitingTurns = [] %>
+                  <% taken = false %>
                   <% schedule.machines.each do |machine|%>
-                    <% if machine.machine_num == i and machine.client %>
+                    <% if machine.machine_num == i and machine.client and !taken %>
+                      <% taken=true %>
                       <!-- Check the classColar that has to be used-->
                       <% if !machine.client.anyPlanActive? %>
                         <% classColor = "expired" %>
@@ -63,9 +66,22 @@
                         <% hEndPlan = machine.client.plan_horary_end %>
                         <% classColor = ((hStart < hStartPlan) or (hEnd > hEndPlan))? "different-time":"" %>
                       <%end%>
-                      <div class="<%=classColor%> inside_turn" data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > <a class='close deleteTurn' href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5> / <em>#{machine.client.plan_name}</em>".html_safe%></div>
+                      <div class="<%=classColor%> inside_turn" data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > <a class='close deleteTurn' href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5> / <em>#{machine.client.plan_name}</em>".html_safe%>
+                      </div>
+                    <%elsif machine.machine_num == i and machine.client %>
+                      <% waitingTurns << machine #Add this turn to the waitingList%>
                     <%end%>
                   <%end%>
+                  <!-- Waiting list -->
+                  <div class="waiting_list_title" data-idrelated='<%="#{hStart}#{hEnd}#{i}"%>' style="display:<%= (waitingTurns.size == 0) ? 'none':'' %>"><i class="icon-list-alt"><h6>Lista de espera</h6></i>
+                    <div class="waiting_list_container" id='<%="#{hStart}#{hEnd}#{i}"%>'>
+                      <div class="titleInContainer"><h6>Lista de espera</h6> / <em>Máquina <%=i%></em></div>
+                      <% waitingTurns.each do |machine|%>
+                        <div data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > <a class='close deleteTurn' href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5>".html_safe%>
+                        </div>
+                      <%end%>
+                    </div>
+                  </div>
                 </td>
               <%end%>
             </tr>

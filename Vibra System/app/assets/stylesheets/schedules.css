@@ -133,6 +133,42 @@
   margin-bottom: 40px;
 }
 
+.waiting_list_title{
+    position:relative;
+  margin-top: 2px;
+  border-top: 1px solid #999;
+}
+
+.waiting_list_title h6{
+  margin-left: 4px;
+  display: inline-block;
+}
+.waiting_list_title i{
+  cursor: pointer;;
+  display: inline-block;
+}
+
+.waiting_list_container{
+  z-index: 99;
+  display: none;
+  border-radius: 2px;
+  padding: 3px;
+  position:absolute;
+  left:-50px;
+  top:0px; 
+  width: 250px;
+  background-color: rgba(240,240,248,0.9);
+}
+
+.waiting_list_container .titleInContainer{
+  display:inline-block;
+  background-color:#fff;
+  width: 100%;
+}
+
+
+/*ANIMATIONS*/
+
 @-moz-keyframes resizeCertify {
     0% {
 }

@@ -137,7 +137,7 @@ jQuery ->
 	  else
 		  false	    
 
-  #Booking funcions
+	#---- BOOKING FUNCTIONS ----#
 	  # Search form.
 	 $('#clients_search input').keyup (e) ->
     e.preventDefault()
@@ -147,13 +147,14 @@ jQuery ->
 
   $("#clients_schedule.nano").nanoScroller()
 
-  #Drag adn drop funcionality
+  #Drag and drop funcionality
+  #DROP
 	$(".client_drop").droppable
 	  activeClass: "ui-state-hover"
 	  hoverClass: "ui-state-active"
 	  accept: ".client_drag"
 	  drop: (event, ui) ->
-	    if $(this).find("div.inside_turn").size() is 0
+	    if true # -> There isn't anyone on this turn
 	      closeTag = "<a class='close deleteTurn' href='#'>×</a>"
 	      if !$(ui.draggable).data("status")
 	        classColor = "expired"
@@ -170,8 +171,10 @@ jQuery ->
 	      textShow = "<h5>"+$(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+"</h5> / <em>"+$(ui.draggable).find(".client_drag_plan").text()+"</em>"
 	      $(this).append ("<div class=' #{classColor} inside_turn' data-idturn='#{scheduleId}' data-idclient='#{clientId}' data-nummachine='#{numMachine}' > #{closeTag} #{textShow}</div>")
 	      reserveTurn(scheduleId,clientId,numMachine,$(this).parent().data("idseat"))
+	    else # -> Waiting list action
+	      $(this).append ("<div class=''><h6>Lista de espera</h6></div>")
 
-
+  #DRAG
 	$(".client_drag").draggable 
 	  revert: true
 	  opacity: 0.6
@@ -195,7 +198,12 @@ jQuery ->
       dataType: "script"
 
 
-  #Delete Action
+	#Waiting List
+  $(document).on "click", ".waiting_list_title", (e) ->	
+    id = $(@).data("idrelated")
+    console.log id
+    $("##{id}").slideDown "slow"
+  #Cancel reservation
   $(document).on "click", ".inside_turn a.deleteTurn", (e) ->
 	  e.preventDefault
 	  if confirm("Está seguro que desea cancelar este turno?")
