@@ -65,10 +65,11 @@ class SchedulesController < ApplicationController
 
   # PUT /schedules/1
   # PUT /schedules/1.json
+  # Reserve Turn
   def update
     @client = Client.find(params[:machine][:client_id])
     @historyPlan = @client.historyPlans.where("state = \'Activo\'").limit(1)[0]
-    if @historyPlan
+    if @historyPlan and params[:waiting] == "false"
       @historyPlan.num_sessions = @historyPlan.num_sessions - 1 
       @historyPlan.save
     end

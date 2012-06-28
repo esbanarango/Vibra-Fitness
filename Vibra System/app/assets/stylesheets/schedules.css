@@ -149,21 +149,33 @@
 }
 
 .waiting_list_container{
-  z-index: 99;
+  overflow: inherit;
+  display: block;
+  z-index: 999;
   display: none;
   border-radius: 2px;
   padding: 3px;
   position:absolute;
   left:-50px;
-  top:0px; 
+  top:3px; 
   width: 250px;
-  background-color: rgba(240,240,248,0.9);
+  background-color: rgba(255,255,255,1);
+  border: 3px solid rgba(55,55,55,0.3);
+}
+
+.waiting_list_container section{
+  padding: 5px;
+  overflow: hidden;
+}
+
+.waiting_list_container hr{
+  margin: 0; 
 }
 
 .waiting_list_container .titleInContainer{
   display:inline-block;
   background-color:#fff;
-  width: 100%;
+  padding: 4px;
 }
 
 

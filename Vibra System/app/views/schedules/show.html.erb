@@ -75,11 +75,15 @@
                   <!-- Waiting list -->
                   <div class="waiting_list_title" data-idrelated='<%="#{hStart}#{hEnd}#{i}"%>' style="display:<%= (waitingTurns.size == 0) ? 'none':'' %>"><i class="icon-list-alt"><h6>Lista de espera</h6></i>
                     <div class="waiting_list_container" id='<%="#{hStart}#{hEnd}#{i}"%>'>
-                      <div class="titleInContainer"><h6>Lista de espera</h6> / <em>Máquina <%=i%></em></div>
-                      <% waitingTurns.each do |machine|%>
-                        <div data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > <a class='close deleteTurn' href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5>".html_safe%>
-                        </div>
-                      <%end%>
+                      <!-- Conainer clients waitins list-->
+                      <header class="titleInContainer"><h6>Lista de espera</h6> / <em>Máquina <%=i%></em></header>
+                      <hr>
+                      <section>
+                        <% waitingTurns.each do |machine|%>
+                          <div data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > <a class='close deleteTurn' data-plan="<%=machine.client.plan_name%>" href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5>".html_safe%>
+                          </div>
+                        <%end%>
+                      </section>
                     </div>
                   </div>
                 </td>

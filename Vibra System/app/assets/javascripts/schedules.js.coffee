@@ -154,6 +154,7 @@ jQuery ->
 	  hoverClass: "ui-state-active"
 	  accept: ".client_drag"
 	  drop: (event, ui) ->
+	    # $(this).find("div.inside_turn").size() is 0	
 	    if true # -> There isn't anyone on this turn
 	      closeTag = "<a class='close deleteTurn' href='#'>×</a>"
 	      if !$(ui.draggable).data("status")
@@ -170,7 +171,7 @@ jQuery ->
 	      numMachine = $(this).data("nummachine")
 	      textShow = "<h5>"+$(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+"</h5> / <em>"+$(ui.draggable).find(".client_drag_plan").text()+"</em>"
 	      $(this).append ("<div class=' #{classColor} inside_turn' data-idturn='#{scheduleId}' data-idclient='#{clientId}' data-nummachine='#{numMachine}' > #{closeTag} #{textShow}</div>")
-	      reserveTurn(scheduleId,clientId,numMachine,$(this).parent().data("idseat"))
+	      reserveTurn(scheduleId,clientId,numMachine,$(this).parent().data("idseat"),false)
 	    else # -> Waiting list action
 	      $(this).append ("<div class=''><h6>Lista de espera</h6></div>")
 
@@ -184,12 +185,13 @@ jQuery ->
 	    $( "<div class='alert alert-block'></div>" ).html("<h4 class='alert-heading'>"+$(this).find(".client_drag_name").text()+" "+$(this).find(".client_drag_last_name").text()+"</h4>")
 	  appendTo: 'body'
   
-  reserveTurn = (scheduleId,clientId,numMachine,seatId) ->
+  reserveTurn = (scheduleId,clientId,numMachine,seatId,waitingList) ->
     $.ajax
       type: "POST"
       url: "/seats/#{seatId}/schedules/#{scheduleId}"
       data:
         _method: "put"
+        waiting: waitingList
         machine:
           machine_num: numMachine
           client_id: clientId
@@ -202,7 +204,7 @@ jQuery ->
   $(document).on "click", ".waiting_list_title", (e) ->	
     id = $(@).data("idrelated")
     console.log id
-    $("##{id}").slideDown "slow"
+    $("##{id}").slideDown "fast"
   #Cancel reservation
   $(document).on "click", ".inside_turn a.deleteTurn", (e) ->
 	  e.preventDefault
