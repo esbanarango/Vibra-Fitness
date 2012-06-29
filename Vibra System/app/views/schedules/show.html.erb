@@ -66,7 +66,9 @@
                         <% hEndPlan = machine.client.plan_horary_end %>
                         <% classColor = ((hStart < hStartPlan) or (hEnd > hEndPlan))? "different-time":"" %>
                       <%end%>
-                      <div class="<%=classColor%> inside_turn" data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > <a class='close deleteTurn' href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5> / <em>#{machine.client.plan_name}</em>".html_safe%>
+                      <div class="<%=classColor%> inside_turn" data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > 
+                        <a rel="tooltip" data-original-title="Cancelar reserva" class='close deleteTurn' href='#'>×</a> 
+                        <%="<h5>#{machine.client.fullName}</h5> / <em>#{machine.client.plan_name}</em>".html_safe%>
                       </div>
                     <%elsif machine.machine_num == i and machine.client %>
                       <% waitingTurns << machine #Add this turn to the waitingList%>
@@ -80,7 +82,8 @@
                       <hr>
                       <section>
                         <% waitingTurns.each do |machine|%>
-                          <div data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > <a class='close deleteTurn' data-plan="<%=machine.client.plan_name%>" href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5>".html_safe%>
+                          <div data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > 
+                            <a rel="tooltip" data-original-title="Retirar de lista de espera" data-where="waiting" class='close deleteTurn' data-plan="<%=machine.client.plan_name%>" href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5>".html_safe%>
                           </div>
                         <%end%>
                       </section>

@@ -203,18 +203,34 @@ jQuery ->
 	#Waiting List
   $(document).on "click", ".waiting_list_title", (e) ->	
     id = $(@).data("idrelated")
-    console.log id
     $("##{id}").slideDown "fast"
+
+  #Close waiting lists when click outside
+  mouse_in = false
+  $(".waiting_list_container").hover (->
+    mouse_in = true
+  ), ->
+    mouse_in = false
+
+  $("body").mouseup ->
+    $(".waiting_list_container").slideUp 300  unless mouse_in
+
+
   #Cancel reservation
-  $(document).on "click", ".inside_turn a.deleteTurn", (e) ->
+  
+  $('.deleteTurn').tooltip() #Activar Tooltip
+
+  $(document).on "click", "a.deleteTurn", (e) ->
 	  e.preventDefault
 	  if confirm("Está seguro que desea cancelar este turno?")
+	  	waitingList = if $(this).data("where") is "waiting" then true else false
 		  turn = $(this).parent()
 		  $.ajax
 		    type: "DELETE"
 		    url: "/schedules/cancel_turn"
 		    data:
 		      _method: "delete"
+		      waiting: waitingList
 		      machine:
 		        client_id: turn.data("idclient")
 		        schedule_id: turn.data("idturn")
@@ -223,7 +239,11 @@ jQuery ->
 		    dataType: "script"
 		    success: ->
 		      turn.slideUp 400, ->
+		        parent = $(@).parent()
 		        $(@).remove()
+		        if waitingList and parent.find("div").size() == 0
+		          parent.parent().slideUp 300, ->
+		          	$(@).parent().slideUp 300
 		  false
 	  else
 		  false
