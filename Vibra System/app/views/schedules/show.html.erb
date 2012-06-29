@@ -58,15 +58,7 @@
                   <% schedule.machines.each do |machine|%>
                     <% if machine.machine_num == i and machine.client and !taken %>
                       <% taken=true %>
-                      <!-- Check the classColar that has to be used-->
-                      <% if !machine.client.anyPlanActive? %>
-                        <% classColor = "expired" %>
-                      <%else%>
-                        <% hStartPlan = machine.client.plan_horary_start %>
-                        <% hEndPlan = machine.client.plan_horary_end %>
-                        <% classColor = ((hStart < hStartPlan) or (hEnd > hEndPlan))? "different-time":"" %>
-                      <%end%>
-                      <div class="<%=classColor%> inside_turn" data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > 
+                      <div class="<%=client_status_class(machine,hStart,hEnd)%> inside_turn" data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > 
                         <a rel="tooltip" data-original-title="Cancelar reserva" class='close deleteTurn' href='#'>×</a> 
                         <%="<h5>#{machine.client.fullName}</h5> / <em>#{machine.client.plan_name}</em>".html_safe%>
                       </div>
@@ -82,8 +74,8 @@
                       <hr>
                       <section>
                         <% waitingTurns.each do |machine|%>
-                          <div data-idturn="<%=schedule.id%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' > 
-                            <a rel="tooltip" data-original-title="Retirar de lista de espera" data-where="waiting" class='close deleteTurn' data-plan="<%=machine.client.plan_name%>" href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5>".html_safe%>
+                          <div data-idturn="<%=schedule.id%>" data-classstatus="<%=client_status_class(machine,hStart,hEnd)%>" data-idclient='<%=machine.client.id%>' data-nummachine='<%=i%>' data-plan="<%=machine.client.plan_name%>" > 
+                            <a rel="tooltip" data-original-title="Retirar de lista de espera" data-where="waiting" class='close deleteTurn' href='#'>×</a> <%="<h5>#{machine.client.fullName}</h5>".html_safe%>
                           </div>
                         <%end%>
                       </section>

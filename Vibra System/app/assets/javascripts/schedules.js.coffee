@@ -154,26 +154,33 @@ jQuery ->
 	  hoverClass: "ui-state-active"
 	  accept: ".client_drag"
 	  drop: (event, ui) ->
+	    # Which is the client status (expired or out of horary)
+	    if !$(ui.draggable).data("status")
+	      classColor = "expired"
+	    else
+	      #Check if client is out of the horary plan
+	      hStart = parseInt($(this).parent().data("horarystart"))
+	      hEnd = parseInt($(this).parent().data("horaryend"))
+	      hStartPlan =parseInt($(ui.draggable).data("horarystart"))
+	      hEndPlan	=parseInt($(ui.draggable).data("horaryend"))
+	      classColor = (if (hStart < hStartPlan) or (hEnd > hEndPlan) then "different-time" else "")
+	    scheduleId = $(this).parent().data("idturn")
+	    clientId = $(ui.draggable).data("idclient")
+	    numMachine = $(this).data("nummachine")
 	    # $(this).find("div.inside_turn").size() is 0	
-	    if true # -> There isn't anyone on this turn
-	      closeTag = "<a class='close deleteTurn' href='#'>×</a>"
-	      if !$(ui.draggable).data("status")
-	        classColor = "expired"
-	      else
-	        #Check if client is out of the horary plan
-	        hStart = parseInt($(this).parent().data("horarystart"))
-	        hEnd = parseInt($(this).parent().data("horaryend"))
-	        hStartPlan =parseInt($(ui.draggable).data("horarystart") )
-	        hEndPlan	=parseInt($(ui.draggable).data("horaryend"))
-	        classColor = (if (hStart < hStartPlan) or (hEnd > hEndPlan) then "different-time" else "")
-	      scheduleId = $(this).parent().data("idturn")
-	      clientId = $(ui.draggable).data("idclient")
-	      numMachine = $(this).data("nummachine")
+	    if $(this).find("div.inside_turn").size() is 0	 # -> There isn't anyone on this turn
+	      closeTag = "<a rel='tooltip' data-original-title='Cancelar reserva' class='close deleteTurn' href='#'>×</a>"
 	      textShow = "<h5>"+$(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+"</h5> / <em>"+$(ui.draggable).find(".client_drag_plan").text()+"</em>"
 	      $(this).append ("<div class=' #{classColor} inside_turn' data-idturn='#{scheduleId}' data-idclient='#{clientId}' data-nummachine='#{numMachine}' > #{closeTag} #{textShow}</div>")
 	      reserveTurn(scheduleId,clientId,numMachine,$(this).parent().data("idseat"),false)
 	    else # -> Waiting list action
-	      $(this).append ("<div class=''><h6>Lista de espera</h6></div>")
+	      $(this).find(".waiting_list_title").show()
+	      waitingContainer = $(this).find(".waiting_list_title .waiting_list_container section")
+	      closeTag = "<a rel='tooltip' data-original-title='Retirar de lista de espera' data-where='waiting' class='close deleteTurn' href='#'>×</a>"
+	      textShow = "<h5>"+$(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+"</h5>"
+	      waitingContainer.append ("<div data-plan='#{$(ui.draggable).find('.client_drag_plan').text()}' data-idturn='#{scheduleId}' data-classstatus='#{classColor}' data-idclient='#{clientId}' data-nummachine='#{numMachine}'>#{closeTag}#{textShow}</div>")
+	      reserveTurn(scheduleId,clientId,numMachine,$(this).parent().data("idseat"),true)
+	    $('.deleteTurn').tooltip()
 
   #DRAG
 	$(".client_drag").draggable 
@@ -241,9 +248,15 @@ jQuery ->
 		      turn.slideUp 400, ->
 		        parent = $(@).parent()
 		        $(@).remove()
-		        if waitingList and parent.find("div").size() == 0
-		          parent.parent().slideUp 300, ->
-		          	$(@).parent().slideUp 300
+		        if waitingList # If it's the only one in the waiting list
+		          if parent.find("div").size() == 0
+		            parent.parent().slideUp 300, ->
+		              $(@).parent().slideUp 300
+		        else
+		          waitingContainer = parent.find(".waiting_list_title .waiting_list_container section")
+		          if waitingContainer.find("div").size() > 0
+		            console.log "hay uno esperando"
+
 		  false
 	  else
 		  false
