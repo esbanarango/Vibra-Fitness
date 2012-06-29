@@ -69,12 +69,29 @@ class SchedulesController < ApplicationController
   def update
     @client = Client.find(params[:machine][:client_id])
     @historyPlan = @client.historyPlans.where("state = \'Activo\'").limit(1)[0]
+
+    #Only change the number of sessions if the client was not on the waiting list
     if @historyPlan and params[:waiting] == "false"
-      @historyPlan.num_sessions = @historyPlan.num_sessions - 1 
-      @historyPlan.save
+      change_number_sessions(@historyPlan,-1)
     end
+
     @machine = Machine.find_or_create_by_schedule_id_and_client_id_and_machine_num(:schedule_id => params[:id], :client_id => params[:machine][:client_id], :machine_num => params[:machine][:machine_num])
   end
+
+
+  # PUT /schedules/from_waiting_to_current
+  # PUT /schedules/from_waiting_to_current
+  #When a client is moved to the current turn from the waiting list
+  def from_waiting_to_current
+    @client = Client.find(params[:machine][:client_id])
+    @historyPlan = @client.historyPlans.where("state = \'Activo\'").limit(1)[0]
+
+    #Only change the number of sessions if the client was not on the waiting list
+    if @historyPlan and params[:waiting] == "false"
+      change_number_sessions(@historyPlan,-1)
+    end
+  end
+
 
   # DELETE /schedules/1
   # DELETE /schedules/1.json
@@ -82,10 +99,9 @@ class SchedulesController < ApplicationController
     @client = Client.find(params[:machine][:client_id])
     @historyPlan = @client.historyPlans.where("state = \'Activo\'").limit(1)[0]
 
+    #Only change the number of sessions if the client was not on the waiting list
     if @historyPlan and params[:waiting] == "false"
-      puts "sisas"
-      @historyPlan.num_sessions = @historyPlan.num_sessions + 1 
-      @historyPlan.save
+      change_number_sessions(@historyPlan,1)
     end
 
     @machine = Machine.where("schedule_id= ? and client_id = ? and machine_num = ?",params[:machine][:schedule_id],params[:machine][:client_id],params[:machine][:machine_num]).limit(1)[0]
@@ -102,6 +118,11 @@ class SchedulesController < ApplicationController
   end
 
   private
+
+    def change_number_sessions(historyPlan,to)
+      historyPlan.num_sessions = historyPlan.num_sessions + to 
+      historyPlan.save
+    end
   
     def sort_column
       Client.column_names.include?(params[:sort]) ? params[:sort] : "first_name"

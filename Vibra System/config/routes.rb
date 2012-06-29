@@ -21,6 +21,8 @@ VibraSystem::Application.routes.draw do
   match '/settings/seats/:seat_id/schedules/:date/new(.:format)',  to: 'schedules#new', via: 'GET', :as => "new_seat_schedule"
   match '/settings/seats/:seat_id/schedules(.:format)',  to: 'schedules#settings_index', via: 'GET', :as => "settings_seat_schedules"
 
+
+  match '/schedules/from_waiting_to_current',  to: 'schedules#from_waiting_to_current', via: 'PUT', :as => "from_waiting_to_current"
   match '/schedules/cancel_turn',  to: 'schedules#cancel_turn', via: 'DELETE', :as => "delete_turn"
 
   match '/schedules_fast(.:format)',  to: 'schedules#create_fast', via: 'POST', :as => "create_fast"

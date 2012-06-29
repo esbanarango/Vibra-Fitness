@@ -171,7 +171,7 @@ jQuery ->
 	    if $(this).find("div.inside_turn").size() is 0	 # -> There isn't anyone on this turn
 	      closeTag = "<a rel='tooltip' data-original-title='Cancelar reserva' class='close deleteTurn' href='#'>×</a>"
 	      textShow = "<h5>"+$(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+"</h5> / <em>"+$(ui.draggable).find(".client_drag_plan").text()+"</em>"
-	      $(this).append ("<div class=' #{classColor} inside_turn' data-idturn='#{scheduleId}' data-idclient='#{clientId}' data-nummachine='#{numMachine}' > #{closeTag} #{textShow}</div>")
+	      $(this).prepend ("<div class=' #{classColor} inside_turn' data-idturn='#{scheduleId}' data-idclient='#{clientId}' data-nummachine='#{numMachine}' > #{closeTag} #{textShow}</div>")
 	      reserveTurn(scheduleId,clientId,numMachine,$(this).parent().data("idseat"),false)
 	    else # -> Waiting list action
 	      $(this).find(".waiting_list_title").show()
@@ -180,7 +180,7 @@ jQuery ->
 	      textShow = "<h5>"+$(ui.draggable).find(".client_drag_name").text()+" "+$(ui.draggable).find(".client_drag_last_name").text()+"</h5>"
 	      waitingContainer.append ("<div data-plan='#{$(ui.draggable).find('.client_drag_plan').text()}' data-idturn='#{scheduleId}' data-classstatus='#{classColor}' data-idclient='#{clientId}' data-nummachine='#{numMachine}'>#{closeTag}#{textShow}</div>")
 	      reserveTurn(scheduleId,clientId,numMachine,$(this).parent().data("idseat"),true)
-	    $('.deleteTurn').tooltip()
+	    $('.deleteTurn').tooltip() #Reactive the tooltip for the new element
 
   #DRAG
 	$(".client_drag").draggable 
@@ -248,19 +248,46 @@ jQuery ->
 		      turn.slideUp 400, ->
 		        parent = $(@).parent()
 		        $(@).remove()
-		        if waitingList # If it's the only one in the waiting list
-		          if parent.find("div").size() == 0
+		        if waitingList 
+		          if parent.find("div").size() == 0 # If it was the only one in the waiting list
 		            parent.parent().slideUp 300, ->
 		              $(@).parent().slideUp 300
 		        else
 		          waitingContainer = parent.find(".waiting_list_title .waiting_list_container section")
 		          if waitingContainer.find("div").size() > 0
-		            console.log "hay uno esperando"
+		            console.log waitingContainer.find("div").size()
+		            if waitingContainer.find("div").size() == 1 then waitingContainer.parent().parent().hide()
+		            #Transform the waiting element to be showen as the actual turn
+		            element = waitingContainer.find("div:first") #Copy the element
+		            waitingContainer.find("div:first").remove()  #Remove the client from the waiting list
+		            classColor = element.data("classstatus")
+		            #Add the respective classes
+		            element.addClass(classColor)
+		            element.addClass("inside_turn")
+		            element.find("a.deleteTurn").data("original-title","Cancelar reserva")
+		            element.find("a.deleteTurn").data("where","")
+		            element.append(" / <em>#{element.data('plan')}</em>")
+		            parent.prepend(element)
+		            from_waiting_to_current(element.data("idclient"),false)
+		            $('.deleteTurn').tooltip() #Reactive the tooltip for the new element		            
 
 		  false
 	  else
 		  false
 
+
+  from_waiting_to_current = (clientId,waitingList) ->
+    $.ajax
+      type: "POST"
+      url: "/schedules/from_waiting_to_current"
+      data:
+        _method: "put"
+        waiting: waitingList
+        machine:
+          client_id: clientId
+      error: ->
+      success: ->
+      dataType: "script"
 
 
 
